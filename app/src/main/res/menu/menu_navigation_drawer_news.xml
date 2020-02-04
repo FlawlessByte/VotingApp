@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group
+        android:id="@+id/grp_1"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_student"
+            android:icon="@drawable/ic_person_outline_black_24dp"
+            android:title="Student Login" />
+        <item
+            android:id="@+id/nav_teacher"
+            android:icon="@drawable/ic_person_outline_black_24dp"
+            android:title="Teacher Login" />
+        <item
+            android:id="@+id/nav_admin"
+            android:icon="@drawable/ic_person_outline_black_24dp"
+            android:title="Admin Login" />
+
+    </group>
+
+    <group
+        android:id="@+id/grp_2"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_gallery"
+            android:icon="@drawable/ic_image_black_24dp"
+            android:title="Gallery" />
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@drawable/ic_info_outline_black_24dp"
+            android:title="About" />
+    </group>
+
+</menu>
