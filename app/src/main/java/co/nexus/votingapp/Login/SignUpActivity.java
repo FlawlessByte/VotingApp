@@ -1,4 +1,4 @@
-package co.nexus.votingapp.Student;
+package co.nexus.votingapp.Login;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,7 +17,10 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import co.nexus.votingapp.Helpers.Constants;
 import co.nexus.votingapp.R;
+import co.nexus.votingapp.Student.StudentRegister;
+import co.nexus.votingapp.Teacher.TeacherRegister;
 
 public class SignUpActivity extends AppCompatActivity {
     private TextInputEditText emailInputSignUp, passwordInputSignUp, confirmPasswordInputSignUp;
@@ -66,18 +69,25 @@ public class SignUpActivity extends AppCompatActivity {
                     Log.d(TAG, "createUserWithEmail:success");
                     FirebaseUser user = mAuth.getCurrentUser();
 
-                    //Go to complete registration
-                    Intent intent = new Intent(SignUpActivity.this, StudentRegister.class);
-                    intent.putExtra("username", username);
-                    intent.putExtra("password", password);
-                    startActivity(intent);
-//                    updateUI(user);
+                    if(Constants.category.equals("student")){
+                        Intent intent = new Intent(SignUpActivity.this, StudentRegister.class);
+                        intent.putExtra("username", username);
+                        intent.putExtra("password", password);
+                        startActivity(intent);
+                    }
+                    else{
+                        Intent intent = new Intent(SignUpActivity.this, TeacherRegister.class);
+                        intent.putExtra("username", username);
+                        intent.putExtra("password", password);
+                        startActivity(intent);
+                    }
+
+
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "createUserWithEmail:failure", task.getException());
                     Toast.makeText(SignUpActivity.this, "Authentication failed.",
                             Toast.LENGTH_SHORT).show();
-//                    updateUI(null);
                 }
             }
         });

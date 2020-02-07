@@ -10,8 +10,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -23,6 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import co.nexus.votingapp.Helpers.Student;
+import co.nexus.votingapp.Login.PhoneNoActivity;
 import co.nexus.votingapp.R;
 
 public class StudentRegister extends AppCompatActivity {
@@ -86,6 +85,7 @@ public class StudentRegister extends AppCompatActivity {
                     intent.putExtra("password", password);
                     intent.putExtra("phone",editTextStudentPhone.getText().toString());
                     intent.putExtra("user", student);
+                    intent.putExtra("category", "teacher");
                     startActivity(intent);
                 }
                 else{
@@ -116,13 +116,13 @@ public class StudentRegister extends AppCompatActivity {
     }
 
 
-    private void writeRegisterInfoToDB(){
-        Student student = getUserObject();
-
-        mDatabase.child("students").child(mAuth.getUid()).setValue(student);
-
-        Toast.makeText(getApplicationContext(), "Successfully registered!", Toast.LENGTH_SHORT).show();
-    }
+//    private void writeRegisterInfoToDB(){
+//        Student student = getUserObject();
+//
+//        mDatabase.child("students").child(mAuth.getUid()).setValue(student);
+//
+//        Toast.makeText(getApplicationContext(), "Successfully registered!", Toast.LENGTH_SHORT).show();
+//    }
 
     private int checkInputs(){
         int errorCount = 0;

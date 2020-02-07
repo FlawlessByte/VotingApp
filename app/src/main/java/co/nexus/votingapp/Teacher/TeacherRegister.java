@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -20,6 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import co.nexus.votingapp.Helpers.Teacher;
 import co.nexus.votingapp.R;
+import co.nexus.votingapp.Login.PhoneNoActivity;
 
 public class TeacherRegister extends AppCompatActivity {
     private DatabaseReference mDatabase;
@@ -28,6 +30,7 @@ public class TeacherRegister extends AppCompatActivity {
     private Button buttonRegister;
     private RadioGroup radioGroupTeacherGender;
     private EditText editTextTeacherName, editTextTeacherDOB, editTextTeacherDept, editTextTeacherYOJ, editTextTeacherPhone, editTextTeacherID;
+    private String username, password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +38,9 @@ public class TeacherRegister extends AppCompatActivity {
         setContentView(R.layout.activity_teacher_register);
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        username = getIntent().getStringExtra("username");
+        password = getIntent().getStringExtra("password");
 
 
 
@@ -60,8 +66,17 @@ public class TeacherRegister extends AppCompatActivity {
             public void onClick(View v) {
                 if(checkInputs() == 0){
                     // No errors, insert into database
-                    writeRegisterInfoToDB();
-                    onBackPressed();
+
+                    Teacher teacher = getTeacherObject();
+
+                    Intent intent = new Intent(TeacherRegister.this, PhoneNoActivity.class);
+                    intent.putExtra("username", username);
+                    intent.putExtra("password", password);
+                    intent.putExtra("phone",editTextTeacherPhone.getText().toString());
+                    intent.putExtra("user", teacher);
+                    intent.putExtra("category", "teacher");
+                    startActivity(intent);
+
                 }
                 else{
                     Toast.makeText(getApplicationContext(), "Please fill all the inputs and try again!", Toast.LENGTH_SHORT).show();
@@ -72,8 +87,7 @@ public class TeacherRegister extends AppCompatActivity {
 
     }
 
-
-    private void writeRegisterInfoToDB(){
+    private Teacher getTeacherObject(){
         String name, dob, phone, gender, id, dept;
         name = editTextTeacherName.getText().toString();
         dob = editTextTeacherDOB.getText().toString();
@@ -81,16 +95,24 @@ public class TeacherRegister extends AppCompatActivity {
         phone = editTextTeacherPhone.getText().toString();
         int selectedId = radioGroupTeacherGender.getCheckedRadioButtonId();
         gender = ((RadioButton)findViewById(selectedId)).getText().toString();
+        int yoj = Integer.parseInt(editTextTeacherYOJ.getText().toString());
         dept = editTextTeacherDept.getText().toString();
-        int yoj;
-        yoj = Integer.parseInt(editTextTeacherYOJ.getText().toString());
 
         Teacher teacher = new Teacher(name, dob, phone, gender, id, dept, yoj, false);
 
-        mDatabase.child("teachers").child(id).setValue(teacher);
-
-        Toast.makeText(getApplicationContext(), "Successfully registered!", Toast.LENGTH_SHORT).show();
+        return  teacher;
     }
+
+
+//    private void writeRegisterInfoToDB(){
+//
+//        Teacher teacher = getTeacherObject();
+//
+//
+//        mDatabase.child("teachers").child(id).setValue(teacher);
+//
+//        Toast.makeText(getApplicationContext(), "Successfully registered!", Toast.LENGTH_SHORT).show();
+//    }
 
     private int checkInputs(){
         int errorCount = 0;

@@ -4,7 +4,6 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
@@ -15,9 +14,8 @@ import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 
-import co.nexus.votingapp.Student.SignInActivity;
-import co.nexus.votingapp.Student.SignUpActivity;
-import co.nexus.votingapp.Student.StudentHome;
+import co.nexus.votingapp.Helpers.Constants;
+import co.nexus.votingapp.Login.SignInActivity;
 
 public class MainActivity extends AppCompatActivity {
     private ActionBar actionBar;
@@ -59,8 +57,13 @@ public class MainActivity extends AppCompatActivity {
                 actionBar.setTitle(item.getTitle());
 
                 if(item.getTitle().equals("Student Login")){
-                    startActivity(new Intent(MainActivity.this, SignInActivity.class));
+                    Constants.category = "student";
                 }
+                else if(item.getTitle().equals("Teacher Login")){
+                    Constants.category = "teacher";
+                }
+
+                startActivity(new Intent(MainActivity.this, SignInActivity.class));
 
 
                 drawer.closeDrawers();

@@ -1,6 +1,8 @@
 package co.nexus.votingapp.Helpers;
 
-public class Teacher {
+import java.io.Serializable;
+
+public class Teacher implements Serializable {
     String name, dob, phone, gender, department, tid;
     int yearOfJoining;
     boolean isConfirmed;

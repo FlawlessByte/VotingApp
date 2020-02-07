@@ -1,4 +1,4 @@
-package co.nexus.votingapp.Student;
+package co.nexus.votingapp.Login;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,13 +23,17 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.concurrent.TimeUnit;
 
 import co.nexus.votingapp.Helpers.Student;
+import co.nexus.votingapp.Helpers.Teacher;
 import co.nexus.votingapp.R;
+import co.nexus.votingapp.Student.StudentHome;
+import co.nexus.votingapp.Teacher.TeacherHome;
 
 public class PhoneNoActivity extends AppCompatActivity {
     private TextInputEditText numberField, codeField;
@@ -39,6 +43,7 @@ public class PhoneNoActivity extends AppCompatActivity {
     private PhoneAuthProvider.ForceResendingToken mResendToken;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
+    private String category;
 
 
     @Override
@@ -48,6 +53,7 @@ public class PhoneNoActivity extends AppCompatActivity {
 
         String countryCode = "+91";
         String phone = getIntent().getStringExtra("phone");
+        category = getIntent().getStringExtra("category");
 
         numberField = findViewById(R.id.phoneNumberField);
         verifyButton = findViewById(R.id.phoneVerifyContinue);
@@ -189,10 +195,12 @@ public class PhoneNoActivity extends AppCompatActivity {
     }
 
     private void doLinkingStuff(PhoneAuthCredential credential, FirebaseUser user){
-//        mAuth.signOut();
 
         String username = getIntent().getStringExtra("username");
         String password = getIntent().getStringExtra("password");
+        if(category.equals("student")){
+
+        }
         Student student = (Student) getIntent().getSerializableExtra("user");
 
         AuthCredential cred = EmailAuthProvider.getCredential(username, password);
@@ -203,16 +211,47 @@ public class PhoneNoActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     Log.d(TAG, "linkWithCredential:success");
                     FirebaseUser user = task.getResult().getUser();
-//                    updateUI(user);
 
-                    mDatabase.child("students").child(user.getUid()).setValue(student);
+                    if(category.equals("student")){
+                        Student student = (Student) getIntent().getSerializableExtra("user");
+                        mDatabase.child("students").child(user.getUid()).setValue(student);
 
-                    startActivity(new Intent(PhoneNoActivity.this, StudentHome.class));
+                        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                .setDisplayName("student").build();
+                        user.updateProfile(profileUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Log.d("Display name: ", FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
+                                }
+                            }
+                        });
+
+                        startActivity(new Intent(PhoneNoActivity.this, StudentHome.class));
+                    }
+                    else if(category.equals("teacher")){
+                        Teacher teacher = (Teacher) getIntent().getSerializableExtra("user");
+                        mDatabase.child("teachers").child(user.getUid()).setValue(teacher);
+
+                        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                .setDisplayName("teacher").build();
+                        user.updateProfile(profileUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Log.d("Display name: ", FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
+                                }
+                            }
+                        });
+
+                        startActivity(new Intent(PhoneNoActivity.this, TeacherHome.class));
+                    }
+
+
                 } else {
                     Log.w(TAG, "linkWithCredential:failure", task.getException());
                     Toast.makeText(PhoneNoActivity.this, "Authentication failed.",
                             Toast.LENGTH_SHORT).show();
-//                    updateUI(null);
                 }
             }
         });

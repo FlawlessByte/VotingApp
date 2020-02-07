@@ -1,4 +1,4 @@
-package co.nexus.votingapp.Student;
+package co.nexus.votingapp.Login;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +19,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import co.nexus.votingapp.R;
+import co.nexus.votingapp.Student.StudentHome;
+import co.nexus.votingapp.Teacher.TeacherHome;
 
 public class SignInActivity extends AppCompatActivity {
     private TextInputEditText emailInputSignIn, passwordInputSignIn;
@@ -31,9 +33,7 @@ public class SignInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 
-
         FirebaseAuth auth = FirebaseAuth.getInstance();
-
 
         emailInputSignIn = findViewById(R.id.emailInputSignIN);
         passwordInputSignIn = findViewById(R.id.passwordInputSignIn);
@@ -52,6 +52,13 @@ public class SignInActivity extends AppCompatActivity {
                                     Log.d(TAG, "createUserWithEmail:success");
                                     FirebaseUser user = auth.getCurrentUser();
 //                                    updateUI(user);
+
+                                    if(user.getDisplayName().equals("student")){
+                                        startActivity(new Intent(SignInActivity.this, StudentHome.class));
+                                    }
+                                    else{
+                                        startActivity(new Intent(SignInActivity.this, TeacherHome.class));
+                                    }
 
 
                                 } else {
@@ -72,8 +79,6 @@ public class SignInActivity extends AppCompatActivity {
                 startActivity(new Intent(SignInActivity.this, SignUpActivity.class));
             }
         });
-
-
 
 
     }
