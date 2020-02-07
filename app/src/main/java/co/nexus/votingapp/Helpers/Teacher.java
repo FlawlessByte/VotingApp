@@ -1,26 +1,29 @@
 package co.nexus.votingapp.Helpers;
 
-import java.io.Serializable;
+public class Teacher {
+    String name, dob, phone, gender, department, tid;
+    int yearOfJoining;
+    boolean isConfirmed;
 
-public class Student implements Serializable {
-    String name, dob, phone, gender, admissionNo, department;
-    int yearOfJoining, yearOfStudy;
-    boolean isVoteEligible, isConfirmed;
-
-    public Student() {}
-
-
-    public Student(String name, String dob, String phone, String gender, String admissionNo, String department, int yearOfJoining, int yearOfStudy, boolean isVoteEligible, boolean isConfirmed) {
+    public Teacher(String name, String dob, String phone, String gender, String tid, String department, int yearOfJoining, boolean isConfirmed) {
         this.name = name;
         this.dob = dob;
         this.phone = phone;
         this.gender = gender;
-        this.admissionNo = admissionNo;
         this.department = department;
         this.yearOfJoining = yearOfJoining;
-        this.yearOfStudy = yearOfStudy;
-        this.isVoteEligible = isVoteEligible;
         this.isConfirmed = isConfirmed;
+        this.tid = tid;
+    }
+
+    public Teacher() {}
+
+    public String getTid() {
+        return tid;
+    }
+
+    public void setTid(String tid) {
+        this.tid = tid;
     }
 
     public String getName() {
@@ -55,14 +58,6 @@ public class Student implements Serializable {
         this.gender = gender;
     }
 
-    public String getAdmissionNo() {
-        return admissionNo;
-    }
-
-    public void setAdmissionNo(String admissionNo) {
-        this.admissionNo = admissionNo;
-    }
-
     public String getDepartment() {
         return department;
     }
@@ -77,22 +72,6 @@ public class Student implements Serializable {
 
     public void setYearOfJoining(int yearOfJoining) {
         this.yearOfJoining = yearOfJoining;
-    }
-
-    public int getYearOfStudy() {
-        return yearOfStudy;
-    }
-
-    public void setYearOfStudy(int yearOfStudy) {
-        this.yearOfStudy = yearOfStudy;
-    }
-
-    public boolean isVoteEligible() {
-        return isVoteEligible;
-    }
-
-    public void setVoteEligible(boolean voteEligible) {
-        isVoteEligible = voteEligible;
     }
 
     public boolean isConfirmed() {

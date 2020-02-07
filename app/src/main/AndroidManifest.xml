@@ -12,7 +12,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Student.StudentRegister" android:theme="@style/MaterialNoTitle"></activity>
+        <activity android:name=".Student.SignUpActivity"></activity>
+        <activity android:name=".Student.SignInActivity" />
+        <activity android:name=".Student.PhoneNoActivity" />
+        <activity android:name=".Teacher.TeacherRegister" />
+        <activity
+            android:name=".Student.StudentRegister"
+            android:theme="@style/MaterialNoTitle" />
         <activity android:name=".Student.StudentHome" />
         <activity android:name=".MainActivity">
             <intent-filter>

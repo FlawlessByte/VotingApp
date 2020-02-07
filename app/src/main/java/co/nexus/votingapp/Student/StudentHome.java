@@ -12,9 +12,10 @@ import android.widget.Button;
 import co.nexus.votingapp.R;
 
 public class StudentHome extends AppCompatActivity {
-    private Button buttonSignIn, buttonRegister;
+    private Button buttonFeePayment, buttonVoteCandidate;
     private ActionBar actionBar;
     private Toolbar toolbar;
+    private final String TAG = "StudentHome";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,20 +24,20 @@ public class StudentHome extends AppCompatActivity {
 
         initToolbar();
 
-        buttonRegister = findViewById(R.id.studentRegister);
-        buttonSignIn = findViewById(R.id.studentSignIn);
+        buttonFeePayment = findViewById(R.id.buttonUnionFeePayment);
+        buttonVoteCandidate = findViewById(R.id.buttonVoteCandidate);
 
-        buttonSignIn.setOnClickListener(new View.OnClickListener() {
+        buttonVoteCandidate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                startActivity(new Intent(StudentHome.this, StudentRegister.class));
+
             }
         });
 
-        buttonRegister.setOnClickListener(new View.OnClickListener() {
+        buttonFeePayment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(StudentHome.this, StudentRegister.class));
+
             }
         });
     }

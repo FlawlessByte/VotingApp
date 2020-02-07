@@ -20,43 +20,25 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/animation_view"
-        android:layout_width="180dp"
-        android:layout_height="180dp"
-        app:lottie_rawRes="@raw/jumbo_typing"
-        android:layout_centerInParent="true"
-        app:lottie_loop="true"
-        app:lottie_autoPlay="true" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Let's get started!"
-        android:textColor="@color/grey_60"
-        android:textStyle="bold"
-        android:textSize="@dimen/spacing_mxlarge"
-        android:layout_below="@id/animation_view"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Register"
+        android:text="Union Fee Payment"
         android:layout_marginBottom="6dp"
-        android:id="@+id/studentRegister"
-        android:layout_above="@id/studentSignIn"
+        android:id="@+id/buttonUnionFeePayment"
+        android:layout_centerInParent="true"
         android:textColor="@color/white"
         android:background="@drawable/btn_rounded"/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/studentSignIn"
+        android:id="@+id/buttonVoteCandidate"
+        android:layout_below="@id/buttonUnionFeePayment"
         android:layout_marginBottom="10dp"
-        android:layout_alignParentBottom="true"
-        android:text="Sign In"
+        android:text="Vote Candidate"
         android:textColor="@color/white"
         android:background="@drawable/btn_rounded"/>
 

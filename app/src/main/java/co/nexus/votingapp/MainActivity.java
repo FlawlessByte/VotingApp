@@ -15,6 +15,8 @@ import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 
+import co.nexus.votingapp.Student.SignInActivity;
+import co.nexus.votingapp.Student.SignUpActivity;
 import co.nexus.votingapp.Student.StudentHome;
 
 public class MainActivity extends AppCompatActivity {
@@ -57,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
                 actionBar.setTitle(item.getTitle());
 
                 if(item.getTitle().equals("Student Login")){
-                    startActivity(new Intent(MainActivity.this, StudentHome.class));
+                    startActivity(new Intent(MainActivity.this, SignInActivity.class));
                 }
 
 

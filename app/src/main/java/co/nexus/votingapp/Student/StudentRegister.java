@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -17,6 +18,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -31,6 +33,8 @@ public class StudentRegister extends AppCompatActivity {
     private RadioGroup radioGroupStudentGender;
     private EditText editTextStudentName, editTextStudentDOB, editTextStudentAdmNo,
             editTextStudentDept, editTextStudentYOJ, editTextStudentYOS, editTextStudentPhone;
+    private FirebaseAuth mAuth;
+    private String username, password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +49,10 @@ public class StudentRegister extends AppCompatActivity {
         setContentView(R.layout.activity_student_register);
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        mAuth = FirebaseAuth.getInstance();
 
-
+        username = getIntent().getStringExtra("username");
+        password = getIntent().getStringExtra("password");
 
         buttonRegister = findViewById(R.id.buttonStudentRegister);
         editTextStudentName = findViewById(R.id.editTextStudentName);
@@ -71,7 +77,16 @@ public class StudentRegister extends AppCompatActivity {
             public void onClick(View v) {
                 if(checkInputs() == 0){
                     // No errors, insert into database
-                    writeRegisterInfoToDB();
+//                    writeRegisterInfoToDB();
+
+                    Student student = getUserObject();
+
+                    Intent intent = new Intent(StudentRegister.this, PhoneNoActivity.class);
+                    intent.putExtra("username", username);
+                    intent.putExtra("password", password);
+                    intent.putExtra("phone",editTextStudentPhone.getText().toString());
+                    intent.putExtra("user", student);
+                    startActivity(intent);
                 }
                 else{
                     Toast.makeText(getApplicationContext(), "Please fill all the inputs and try again!", Toast.LENGTH_SHORT).show();
@@ -79,11 +94,9 @@ public class StudentRegister extends AppCompatActivity {
             }
         });
 
-        
     }
 
-
-    private void writeRegisterInfoToDB(){
+    private Student getUserObject(){
         String name, dob, phone, gender, admnNo, dept;
         name = editTextStudentName.getText().toString();
         dob = editTextStudentDOB.getText().toString();
@@ -98,7 +111,15 @@ public class StudentRegister extends AppCompatActivity {
 
         Student student = new Student(name, dob, phone, gender, admnNo, dept, yoj, yos, true, false);
 
-        mDatabase.child("students").child(admnNo).setValue(student);
+        return student;
+
+    }
+
+
+    private void writeRegisterInfoToDB(){
+        Student student = getUserObject();
+
+        mDatabase.child("students").child(mAuth.getUid()).setValue(student);
 
         Toast.makeText(getApplicationContext(), "Successfully registered!", Toast.LENGTH_SHORT).show();
     }
@@ -123,7 +144,7 @@ public class StudentRegister extends AppCompatActivity {
 
     private void showDepartmentDialog(final View v) {
         final String[] array = new String[]{
-                "Computer Science", "Physics", "Chemistry", "Psychology", "Commerce"
+                "Mathematics", "Physics", "Chemistry", "BCA", "CS", "Zoology"
         };
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Department");
