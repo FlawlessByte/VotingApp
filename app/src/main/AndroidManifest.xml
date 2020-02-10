@@ -5,6 +5,9 @@
 
     <dist:module dist:instant="true" />
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -12,24 +15,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PermissionActivity"></activity>
-        <activity android:name=".Teacher.AddCandidateActivity" />
-        <activity android:name=".Teacher.TeacherHome" />
-        <activity android:name=".Login.SignUpActivity" />
-        <activity android:name=".Login.SignInActivity" />
-        <activity android:name=".Login.PhoneNoActivity" />
-        <activity android:name=".Teacher.TeacherRegister" />
-        <activity
-            android:name=".Student.StudentRegister"
-            android:theme="@style/MaterialNoTitle" />
-        <activity android:name=".Student.StudentHome" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".Admin.AdminHomeActivity"></activity>
+        <activity android:name=".Admin.AdminLoginActivity" />
+        <activity android:name=".PermissionActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Teacher.AddCandidateActivity" />
+        <activity android:name=".Teacher.TeacherHome" />
+        <activity android:name=".Login.SignUpActivity" />
+        <activity android:name=".Login.SignInActivity" />
+        <activity android:name=".Login.PhoneNoActivity" />
+        <activity
+            android:name=".Teacher.TeacherRegister"
+            android:theme="@style/MaterialNoTitle" />
+        <activity
+            android:name=".Student.StudentRegister"
+            android:theme="@style/MaterialNoTitle" />
+        <activity android:name=".Student.StudentHome" />
+        <activity android:name=".MainActivity" />
     </application>
 
 </manifest>

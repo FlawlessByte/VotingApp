@@ -198,10 +198,6 @@ public class PhoneNoActivity extends AppCompatActivity {
 
         String username = getIntent().getStringExtra("username");
         String password = getIntent().getStringExtra("password");
-        if(category.equals("student")){
-
-        }
-        Student student = (Student) getIntent().getSerializableExtra("user");
 
         AuthCredential cred = EmailAuthProvider.getCredential(username, password);
 

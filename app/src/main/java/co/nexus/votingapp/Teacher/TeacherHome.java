@@ -8,11 +8,16 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import co.nexus.votingapp.MainActivity;
 import co.nexus.votingapp.R;
 
 public class TeacherHome extends AppCompatActivity {
     private Button buttonAddCandidate, buttonTeacherInbox, buttonTeacherLogOut;
     private final String TAG = "TeacherHome";
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +27,8 @@ public class TeacherHome extends AppCompatActivity {
         buttonAddCandidate = findViewById(R.id.buttonAddCandidate);
         buttonTeacherInbox = findViewById(R.id.buttonTeacherInbox);
         buttonTeacherLogOut = findViewById(R.id.buttonTeacherSignOut);
+
+        mAuth = FirebaseAuth.getInstance();
 
         buttonAddCandidate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,6 +49,8 @@ public class TeacherHome extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "Sign Out clicked!");
+                mAuth.signOut();
+                startActivity(new Intent(TeacherHome.this, MainActivity.class));
             }
         });
 

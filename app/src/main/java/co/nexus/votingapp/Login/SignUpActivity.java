@@ -54,10 +54,19 @@ public class SignUpActivity extends AppCompatActivity {
 
 
     private void doSignUpStuff(String username, String password){
-        Intent intent = new Intent(SignUpActivity.this, StudentRegister.class);
-        intent.putExtra("username", username);
-        intent.putExtra("password", password);
-        startActivity(intent);
+        if(Constants.category.equals("student")){
+            Intent intent = new Intent(SignUpActivity.this, StudentRegister.class);
+            intent.putExtra("username", username);
+            intent.putExtra("password", password);
+            startActivity(intent);
+        }
+        else {
+            Intent intent = new Intent(SignUpActivity.this, TeacherRegister.class);
+            intent.putExtra("username", username);
+            intent.putExtra("password", password);
+            startActivity(intent);
+        }
+
     }
 
     private void createUser(String username, String password){

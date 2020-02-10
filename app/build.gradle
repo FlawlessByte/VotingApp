@@ -30,6 +30,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'com.google.firebase:firebase-auth:19.2.0'
     implementation 'com.google.firebase:firebase-database:19.2.1'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
@@ -38,5 +39,8 @@ dependencies {
     implementation 'com.android.support:design:28.0.0'
     implementation 'com.airbnb.android:lottie:3.3.1'
     implementation 'com.karumi:dexter:6.0.2'
+    implementation 'com.obsez.android.lib.filechooser:filechooser:1.2.0'
+    implementation 'com.google.firebase:firebase-storage:19.1.1'
+    implementation 'com.mikhaellopez:circularimageview:4.2.0'
 
 }

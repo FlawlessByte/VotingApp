@@ -92,6 +92,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:id="@+id/candidateImagePathTextView"
                     android:text="Add Photo"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                     android:textColor="@color/grey_40" />
@@ -235,6 +236,31 @@
                 android:editable="false"
                 android:focusable="false"
                 android:hint="Year of Study"
+                android:backgroundTint="@color/grey_3"
+                android:paddingLeft="@dimen/spacing_middle"
+                android:paddingRight="@dimen/spacing_middle" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_mlarge"
+                android:text="Candiate Party"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                android:textColor="@color/grey_40" />
+
+            <EditText
+                android:id="@+id/candidatePartyEditText"
+                style="@style/EditText.Flat.Grey"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="@dimen/spacing_middle"
+                android:background="@drawable/edit_text_round_bg_white"
+                android:drawableEnd="@drawable/ic_expand_arrow"
+                android:drawableRight="@drawable/ic_expand_arrow"
+                android:editable="false"
+                android:focusable="false"
+                android:hint="Candidate Party"
                 android:backgroundTint="@color/grey_3"
                 android:paddingLeft="@dimen/spacing_middle"
                 android:paddingRight="@dimen/spacing_middle" />

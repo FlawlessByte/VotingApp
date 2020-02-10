@@ -8,18 +8,21 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 
+import co.nexus.votingapp.Admin.AdminLoginActivity;
 import co.nexus.votingapp.Helpers.Constants;
 import co.nexus.votingapp.Login.SignInActivity;
 
 public class MainActivity extends AppCompatActivity {
     private ActionBar actionBar;
     private Toolbar toolbar;
+    private final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,12 +61,18 @@ public class MainActivity extends AppCompatActivity {
 
                 if(item.getTitle().equals("Student Login")){
                     Constants.category = "student";
+                    startActivity(new Intent(MainActivity.this, SignInActivity.class));
                 }
                 else if(item.getTitle().equals("Teacher Login")){
                     Constants.category = "teacher";
+                    startActivity(new Intent(MainActivity.this, SignInActivity.class));
+                }
+                else if(item.getTitle().equals("Admin Login")){
+                    Log.d(TAG, "Admin login clicked");
+                    startActivity(new Intent(MainActivity.this, AdminLoginActivity.class));
                 }
 
-                startActivity(new Intent(MainActivity.this, SignInActivity.class));
+
 
 
                 drawer.closeDrawers();

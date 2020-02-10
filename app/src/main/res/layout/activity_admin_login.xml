@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/spacing_medium"
-            android:text="Set up a new account"
+            android:text="Sign in to continue"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
             android:textColor="@color/blue_grey_300" />
 
@@ -54,7 +54,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="EMAIL"
+            android:text="Username"
             android:textAlignment="center"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
             android:textColor="@color/blue_grey_200" />
@@ -66,7 +66,7 @@
             android:layout_marginRight="-4dp"
             android:inputType="text"
             android:maxLength="50"
-            android:id="@+id/emailInputSignUp"
+            android:id="@+id/adminUsernameInputSignIN"
             android:maxLines="1"
             android:singleLine="true"
             android:textColor="@color/blue_grey_800"
@@ -91,32 +91,7 @@
             android:layout_marginRight="-4dp"
             android:inputType="textPassword"
             android:maxLength="50"
-            android:id="@+id/passwordInputSignUp"
-            android:maxLines="1"
-            android:singleLine="true"
-            android:textColor="@color/blue_grey_800"
-            android:theme="@style/EditText.Green" />
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="@dimen/spacing_mlarge" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="CONFIRM PASSWORD"
-            android:textAlignment="center"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
-            android:textColor="@color/blue_grey_200" />
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="-4dp"
-            android:layout_marginRight="-4dp"
-            android:inputType="textPassword"
-            android:maxLength="50"
-            android:id="@+id/confirmPasswordInputSignUp"
+            android:id="@+id/adminPasswordInputSignIn"
             android:maxLines="1"
             android:singleLine="true"
             android:textColor="@color/blue_grey_800"
@@ -133,8 +108,8 @@
             android:layout_marginLeft="-4dp"
             android:layout_marginRight="-4dp"
             android:background="@drawable/btn_rounded_green_300"
-            android:text="S I G N  U P"
-            android:id="@+id/buttonSignUp"
+            android:text="S I G N  I N"
+            android:id="@+id/adminButtonSignIn"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
             android:textStyle="bold" />
@@ -143,23 +118,6 @@
             android:layout_width="0dp"
             android:layout_height="@dimen/spacing_medium" />
 
-        <LinearLayout
-            android:id="@+id/sign_up_for_account"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_middle"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="ALREADY HAVE AN ACCOUNT? SIGN IN"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
-                android:textColor="@color/blue_grey_400" />
-
-
-        </LinearLayout>
 
         <View
             android:layout_width="0dp"
