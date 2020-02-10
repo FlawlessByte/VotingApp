@@ -29,6 +29,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.concurrent.TimeUnit;
 
+import co.nexus.votingapp.Helpers.Constants;
 import co.nexus.votingapp.Helpers.Student;
 import co.nexus.votingapp.Helpers.Teacher;
 import co.nexus.votingapp.R;
@@ -83,6 +84,7 @@ public class PhoneNoActivity extends AppCompatActivity {
         verifyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d(TAG, "OTP verify button pressed");
                 String code = codeField.getText().toString();
                 if(code.length() == 6){
                     PhoneAuthCredential credential = PhoneAuthProvider.getCredential(mVerificationId, code);
@@ -208,7 +210,8 @@ public class PhoneNoActivity extends AppCompatActivity {
                     Log.d(TAG, "linkWithCredential:success");
                     FirebaseUser user = task.getResult().getUser();
 
-                    if(category.equals("student")){
+                    if(Constants.category.equals("student")){
+                        Log.d(TAG, "Student prof update");
                         Student student = (Student) getIntent().getSerializableExtra("user");
                         mDatabase.child("students").child(user.getUid()).setValue(student);
 
@@ -225,7 +228,8 @@ public class PhoneNoActivity extends AppCompatActivity {
 
                         startActivity(new Intent(PhoneNoActivity.this, StudentHome.class));
                     }
-                    else if(category.equals("teacher")){
+                    else if(Constants.category.equals("teacher")){
+                        Log.d(TAG, "teacher prof update");
                         Teacher teacher = (Teacher) getIntent().getSerializableExtra("user");
                         mDatabase.child("teachers").child(user.getUid()).setValue(teacher);
 

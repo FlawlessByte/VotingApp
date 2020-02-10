@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -34,6 +35,7 @@ public class StudentRegister extends AppCompatActivity {
             editTextStudentDept, editTextStudentYOJ, editTextStudentYOS, editTextStudentPhone;
     private FirebaseAuth mAuth;
     private String username, password;
+    private final String TAG = "StudentRegister";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +76,7 @@ public class StudentRegister extends AppCompatActivity {
         buttonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d(TAG, "Register button pressed");
                 if(checkInputs() == 0){
                     // No errors, insert into database
 //                    writeRegisterInfoToDB();
