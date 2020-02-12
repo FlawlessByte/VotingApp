@@ -15,7 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Admin.AdminHomeActivity"></activity>
+        <activity android:name=".Teacher.TeacherInboxActivity"></activity>
+        <activity android:name=".Admin.AdminHomeActivity" />
         <activity android:name=".Admin.AdminLoginActivity" />
         <activity android:name=".PermissionActivity">
             <intent-filter>

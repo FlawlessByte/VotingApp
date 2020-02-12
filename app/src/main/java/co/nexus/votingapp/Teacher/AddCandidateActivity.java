@@ -5,6 +5,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -219,6 +220,7 @@ public class AddCandidateActivity extends AppCompatActivity {
                     public void onChoosePath(String path, File pathFile) {
                         Toast.makeText(AddCandidateActivity.this, "FILE: " + path, Toast.LENGTH_SHORT).show();
                         candidateImagePathTextView.setText(path);
+                        candidateProfileImageView.setImageBitmap(BitmapFactory.decodeFile(path));
                     }
                 })
                 // to handle the back key pressed or clicked outside the dialog:

@@ -18,7 +18,7 @@ import co.nexus.votingapp.R;
 public class AdminHomeActivity extends AppCompatActivity {
     private final String TAG = "AdminHomeActivity";
     private DrawerLayout drawer;
-    private ImageButton adminMenuButton;
+    private ImageButton adminMenuButton, adminAddButton;
     private TextView adminMenuTitle;
 //    private ActionBar actionBar;
 //    private Toolbar toolbar;
@@ -30,6 +30,7 @@ public class AdminHomeActivity extends AppCompatActivity {
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout_admin);
         adminMenuButton = findViewById(R.id.adminButtonMenu);
+        adminAddButton = findViewById(R.id.adminAddButton);
         adminMenuTitle = findViewById(R.id.adminMenuTitleTextView);
 
         // Begin the transaction
@@ -63,7 +64,8 @@ public class AdminHomeActivity extends AppCompatActivity {
 //    }
 
     public void onAdminMenuClicked(View v){
-        switch (v.getTag().toString()){
+        String tag = v.getTag().toString();
+        switch (tag){
             case "inbox":{
                 Log.d(TAG, "Inbox clicked");
                 adminMenuTitle.setText("Inbox");
@@ -89,7 +91,7 @@ public class AdminHomeActivity extends AppCompatActivity {
                 adminMenuTitle.setText("Gallery");
                 // Begin the transaction
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.admin_fragment_placeholder, new AdminInboxFragment());
+                ft.replace(R.id.admin_fragment_placeholder, new AdminGalleryFragment(adminAddButton));
                 ft.commit();
 
                 break;
@@ -99,7 +101,7 @@ public class AdminHomeActivity extends AppCompatActivity {
                 adminMenuTitle.setText("News Feeds");
                 // Begin the transaction
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.admin_fragment_placeholder, new AdminInboxFragment());
+                ft.replace(R.id.admin_fragment_placeholder, new AdminFeedsFragment());
                 ft.commit();
 
                 break;
@@ -140,6 +142,11 @@ public class AdminHomeActivity extends AppCompatActivity {
                 break;
             }
         }
+
+        if(tag.equals("gallery"))
+            adminAddButton.setVisibility(View.VISIBLE);
+        else
+            adminAddButton.setVisibility(View.INVISIBLE);
 
         drawer.closeDrawers();
     }

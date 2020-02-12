@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_marginTop="@dimen/actionBarSize"
+    tools:context=".Admin.AdminGalleryFragment">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Images appear here!"
+        android:layout_gravity="center_horizontal"
+        android:textAlignment="center"
+        android:id="@+id/textViewAdminGallery"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:layout_margin="16dp"
+        android:textColor="@color/blue_grey_800"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewAdminGallery"
+        android:layout_margin="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"
+        android:scrollingCache="true" />
+
+
+</LinearLayout>

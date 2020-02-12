@@ -36,13 +36,16 @@
                 android:textColor="@color/grey_80"
                 app:fontFamily="sans-serif-medium" />
 
-<!--            <ImageButton-->
-<!--                android:layout_width="?attr/actionBarSize"-->
-<!--                android:layout_height="?attr/actionBarSize"-->
-<!--                android:background="?attr/selectableItemBackgroundBorderless"-->
-<!--                android:tint="@color/grey_60"-->
-<!--                android:id="@+id/buttonDoneCandidate"-->
-<!--                app:srcCompat="@drawable/ic_done" />-->
+            <ImageButton
+                android:layout_width="?attr/actionBarSize"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:tint="@color/grey_60"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:id="@+id/adminAddButton"
+                android:visibility="invisible"
+                app:srcCompat="@drawable/ic_add_black_24dp" />
 
         </RelativeLayout>
 
@@ -308,7 +311,7 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:tint="@color/grey_20"
-                    app:srcCompat="@drawable/ic_exit_to_app_black_24dp" />
+                    app:srcCompat="@drawable/ic_timer_black_24dp" />
 
                 <View
                     android:layout_width="@dimen/spacing_mlarge"

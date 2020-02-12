@@ -27,6 +27,9 @@ public class AdminInboxFragment extends Fragment {
         // Required empty public constructor
     }
 
+
+
+
     public static AdminInboxFragment newInstance(String param1, String param2) {
         AdminInboxFragment fragment = new AdminInboxFragment();
         Bundle args = new Bundle();
