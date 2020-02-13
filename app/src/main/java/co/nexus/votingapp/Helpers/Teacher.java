@@ -3,22 +3,40 @@ package co.nexus.votingapp.Helpers;
 import java.io.Serializable;
 
 public class Teacher implements Serializable {
-    String name, dob, phone, gender, department, tid;
+    String name, dob, phone, gender, department, tid, email;
     int yearOfJoining;
-    boolean isConfirmed;
+    boolean isConfirmed, isRemoved;
 
-    public Teacher(String name, String dob, String phone, String gender, String tid, String department, int yearOfJoining, boolean isConfirmed) {
+    public Teacher(String name, String dob, String phone,String email, String gender, String tid, String department, int yearOfJoining, boolean isConfirmed, boolean isRemoved) {
         this.name = name;
         this.dob = dob;
         this.phone = phone;
+        this.email = email;
         this.gender = gender;
         this.department = department;
         this.yearOfJoining = yearOfJoining;
         this.isConfirmed = isConfirmed;
         this.tid = tid;
+        this.isRemoved = isRemoved;
     }
 
     public Teacher() {}
+
+    public boolean isRemoved() {
+        return isRemoved;
+    }
+
+    public void setRemoved(boolean removed) {
+        isRemoved = removed;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public String getTid() {
         return tid;

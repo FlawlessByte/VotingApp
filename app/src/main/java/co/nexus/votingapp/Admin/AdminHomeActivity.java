@@ -111,7 +111,7 @@ public class AdminHomeActivity extends AppCompatActivity {
                 adminMenuTitle.setText("Notifications");
                 // Begin the translogoutaction
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.admin_fragment_placeholder, new AdminInboxFragment());
+                ft.replace(R.id.admin_fragment_placeholder, new AdminNotificationFragment());
                 ft.commit();
 
                 break;

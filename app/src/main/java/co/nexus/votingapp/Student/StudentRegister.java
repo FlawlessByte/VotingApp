@@ -112,7 +112,7 @@ public class StudentRegister extends AppCompatActivity {
         yoj = Integer.parseInt(editTextStudentYOJ.getText().toString());
         yos = Integer.parseInt(editTextStudentYOS.getText().toString());
 
-        Student student = new Student(name, dob, phone, gender, admnNo, dept, yoj, yos, true, false);
+        Student student = new Student(name, dob, phone, username, gender, admnNo, dept, yoj, yos, true, false, false);
 
         return student;
 

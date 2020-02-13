@@ -3,17 +3,19 @@ package co.nexus.votingapp.Helpers;
 import java.io.Serializable;
 
 public class Student implements Serializable {
-    String name, dob, phone, gender, admissionNo, department;
+    String name, dob, phone, gender, admissionNo, department, email;
     int yearOfJoining, yearOfStudy;
-    boolean isVoteEligible, isConfirmed;
+    boolean isVoteEligible, isConfirmed, isRemoved;
 
     public Student() {}
 
 
-    public Student(String name, String dob, String phone, String gender, String admissionNo, String department, int yearOfJoining, int yearOfStudy, boolean isVoteEligible, boolean isConfirmed) {
+    public Student(String name, String dob, String phone, String email, String gender, String admissionNo,
+                   String department, int yearOfJoining, int yearOfStudy, boolean isVoteEligible, boolean isConfirmed, boolean isRemoved) {
         this.name = name;
         this.dob = dob;
         this.phone = phone;
+        this.email = email;
         this.gender = gender;
         this.admissionNo = admissionNo;
         this.department = department;
@@ -21,6 +23,23 @@ public class Student implements Serializable {
         this.yearOfStudy = yearOfStudy;
         this.isVoteEligible = isVoteEligible;
         this.isConfirmed = isConfirmed;
+        this.isRemoved = isRemoved;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public boolean isRemoved() {
+        return isRemoved;
+    }
+
+    public void setRemoved(boolean removed) {
+        isRemoved = removed;
     }
 
     public String getName() {

@@ -98,7 +98,7 @@ public class TeacherRegister extends AppCompatActivity {
         int yoj = Integer.parseInt(editTextTeacherYOJ.getText().toString());
         dept = editTextTeacherDept.getText().toString();
 
-        Teacher teacher = new Teacher(name, dob, phone, gender, id, dept, yoj, false);
+        Teacher teacher = new Teacher(name, dob, phone, username, gender, id, dept, yoj, false, false);
 
         return  teacher;
     }

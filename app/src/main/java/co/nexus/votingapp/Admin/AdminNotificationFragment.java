@@ -5,7 +5,6 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.text.TextUtils;
@@ -22,17 +21,19 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import co.nexus.votingapp.Helpers.NewsFeed;
+import co.nexus.votingapp.Helpers.Notification;
 import co.nexus.votingapp.R;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AdminFeedsFragment extends Fragment {
+public class AdminNotificationFragment extends Fragment {
     private DatabaseReference mRef;
-    private final String TAG = "AdminFeedsFragment";
+    private final String TAG = "AdminNotfFragment";
     private ProgressDialog progressDialog;
-    public AdminFeedsFragment() {
+
+
+    public AdminNotificationFragment() {
         // Required empty public constructor
     }
 
@@ -43,28 +44,28 @@ public class AdminFeedsFragment extends Fragment {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_admin_feeds, container, false);
 
-        EditText editTextAdminFeed = root.findViewById(R.id.editTextAdminFeed);
-        Button buttonAdminSubmitFeed = root.findViewById(R.id.buttonSubmitAdminFeeds);
+        EditText editTextAdminNotf = root.findViewById(R.id.editTextAdminNotification);
+        Button buttonAdminSubmitNotf = root.findViewById(R.id.buttonSubmitAdminNotification);
 
         mRef = FirebaseDatabase.getInstance().getReference();
 
-        buttonAdminSubmitFeed.setOnClickListener(new View.OnClickListener() {
+        buttonAdminSubmitNotf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "Submit Button Clicked");
-                String text = editTextAdminFeed.getText().toString();
+                String text = editTextAdminNotf.getText().toString();
                 if(!TextUtils.isEmpty(text)){
                     progressDialog = showProgressDialog();
 
-                    long time = NewsFeed.getCurrentTime();
-                    NewsFeed newsFeed = new NewsFeed(text, time);
+                    long time = Notification.getCurrentTime();
+                    Notification notification = new Notification(text, time);
 
-                    String key = mRef.child("newsfeeds").push().getKey();
-                    mRef.child("newsfeeds").child(key).setValue(newsFeed).addOnCompleteListener(getActivity(), new OnCompleteListener<Void>() {
+                    String key = mRef.child("notifications").push().getKey();
+                    mRef.child("notifications").child(key).setValue(notification).addOnCompleteListener(getActivity(), new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             Toast.makeText(getContext(), "News feed submitted succesfully!" , Toast.LENGTH_SHORT).show();
-                            editTextAdminFeed.setText("");
+                            editTextAdminNotf.setText("");
                             progressDialog.dismiss();
                         }
                     });
@@ -79,12 +80,12 @@ public class AdminFeedsFragment extends Fragment {
         return root;
     }
 
-
     private ProgressDialog showProgressDialog(){
         ProgressDialog dialog = new ProgressDialog(getContext());
         dialog.setMessage("Please wait!");
         dialog.show();
         return dialog;
     }
+
 
 }
