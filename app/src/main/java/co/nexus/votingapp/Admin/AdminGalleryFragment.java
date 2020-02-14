@@ -313,7 +313,7 @@ public class AdminGalleryFragment extends Fragment {
             imgBtn.setVisibility(View.INVISIBLE);
         }
 
-        ImageView imageView = (ImageView)(dialog.findViewById(R.id.dialog_image_gallery));
+        ImageView imageView = (ImageView)dialog.findViewById(R.id.dialog_imageview_preview);
         GlideApp.with(getContext())
                 .load(items.get(pos))
                 .into(imageView);
