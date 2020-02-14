@@ -27,6 +27,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import co.nexus.votingapp.Admin.AdminLoginActivity;
 import co.nexus.votingapp.Helpers.Constants;
@@ -127,6 +128,7 @@ public class MainActivity extends AppCompatActivity {
                     Notification notf = snap.getValue(Notification.class);
                     notifications.add(notf);
                 }
+                Collections.sort(notifications);
                 notfAdapter = new NotificationAdapter(MainActivity.this, notifications);
                 recyclerViewNotf.setAdapter(notfAdapter);
                 notfAdapter.notifyDataSetChanged();
@@ -183,12 +185,14 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     }
                     case "Gallery": {
-                        Log.d(TAG, "Admin login clicked");
+                        Log.d(TAG, "Gallery clicked");
                         startActivity(new Intent(MainActivity.this, GalleryActivity.class));
                         break;
                     }
                     case "About": {
-
+                        Log.d(TAG, "About clicked");
+                        startActivity(new Intent(MainActivity.this, AboutActivity.class));
+                        break;
                     }
 
                 }

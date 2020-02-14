@@ -1,6 +1,6 @@
 package co.nexus.votingapp.Helpers;
 
-public class Candidate {
+public class Candidate implements Comparable{
     String name, dob, gender, department, imgPath, party;
     int yearOfStudy, voteCount;
 
@@ -79,5 +79,11 @@ public class Candidate {
 
     public void setVoteCount(int voteCount) {
         this.voteCount = voteCount;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        int vote = ((Candidate)o).getVoteCount();
+        return this.voteCount-vote;
     }
 }
