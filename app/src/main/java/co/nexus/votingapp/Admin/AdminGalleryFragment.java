@@ -30,12 +30,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.StorageReference;
@@ -137,13 +133,14 @@ public class AdminGalleryFragment extends Fragment {
 
         textViewAdminGallery = root.findViewById(R.id.textViewAdminGallery);
 
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG, "Add button clicked");
-                pickFromGallery();
-            }
-        });
+        if(btn!=null)
+            btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.d(TAG, "Add button clicked");
+                    pickFromGallery();
+                }
+            });
 
         processData();
 
@@ -301,15 +298,20 @@ public class AdminGalleryFragment extends Fragment {
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.setCancelable(true);
 
-        (dialog.findViewById(R.id.dialog_imagebutton_preview)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-                Log.d(TAG, "Dialog Delete Button clicked");
-                deleteFileFromStorage(pos);
-            }
-        });
+        ImageButton imgBtn = dialog.findViewById(R.id.dialog_imagebutton_preview);
 
+        if(btn != null)
+            imgBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                    Log.d(TAG, "Dialog Delete Button clicked");
+                    deleteFileFromStorage(pos);
+                }
+            });
+        else{
+            imgBtn.setVisibility(View.INVISIBLE);
+        }
 
         ImageView imageView = (ImageView)(dialog.findViewById(R.id.dialog_image_gallery));
         GlideApp.with(getContext())

@@ -5,7 +5,6 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.text.TextUtils;
@@ -22,7 +21,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import co.nexus.votingapp.Helpers.NewsFeed;
+import co.nexus.votingapp.Helpers.Notification;
 import co.nexus.votingapp.R;
 
 /**
@@ -44,6 +43,7 @@ public class AdminFeedsFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_admin_feeds, container, false);
 
         EditText editTextAdminFeed = root.findViewById(R.id.editTextAdminFeed);
+        EditText editTextAdminTitleFeed = root.findViewById(R.id.editTextAdminTitleFeed);
         Button buttonAdminSubmitFeed = root.findViewById(R.id.buttonSubmitAdminFeeds);
 
         mRef = FirebaseDatabase.getInstance().getReference();
@@ -53,14 +53,15 @@ public class AdminFeedsFragment extends Fragment {
             public void onClick(View v) {
                 Log.d(TAG, "Submit Button Clicked");
                 String text = editTextAdminFeed.getText().toString();
-                if(!TextUtils.isEmpty(text)){
+                String title = editTextAdminTitleFeed.getText().toString();
+                if(!TextUtils.isEmpty(text)  && !TextUtils.isEmpty(title)){
                     progressDialog = showProgressDialog();
 
-                    long time = NewsFeed.getCurrentTime();
-                    NewsFeed newsFeed = new NewsFeed(text, time);
+                    long time = Notification.getCurrentTime();
+                    Notification notification = new Notification(title, text, time);
 
                     String key = mRef.child("newsfeeds").push().getKey();
-                    mRef.child("newsfeeds").child(key).setValue(newsFeed).addOnCompleteListener(getActivity(), new OnCompleteListener<Void>() {
+                    mRef.child("newsfeeds").child(key).setValue(notification).addOnCompleteListener(getActivity(), new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             Toast.makeText(getContext(), "News feed submitted succesfully!" , Toast.LENGTH_SHORT).show();
@@ -70,7 +71,7 @@ public class AdminFeedsFragment extends Fragment {
                     });
                 }
                 else{
-                    Toast.makeText(getContext(), "No text to submit!" , Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Please fill out all the fields and try again!" , Toast.LENGTH_SHORT).show();
                 }
 
             }

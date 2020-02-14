@@ -4,23 +4,31 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class Notification {
-    public String notification;
+    public String content, title;
     public long time;
 
-    public Notification(String notification, long time) {
-        this.notification = notification;
+    public Notification(String title, String content, long time) {
+        this.content = content;
+        this.title = title;
         this.time = time;
     }
 
     public Notification() {}
 
-
-    public String getNotification() {
-        return notification;
+    public String getTitle() {
+        return title;
     }
 
-    public void setNotification(String notification) {
-        this.notification = notification;
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public long getTime() {

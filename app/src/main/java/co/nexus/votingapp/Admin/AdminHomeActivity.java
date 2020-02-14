@@ -121,7 +121,7 @@ public class AdminHomeActivity extends AppCompatActivity {
                 adminMenuTitle.setText("Timer");
                 // Begin the transaction
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.admin_fragment_placeholder, new AdminInboxFragment());
+                ft.replace(R.id.admin_fragment_placeholder, new AdminTimerFragment());
                 ft.commit();
 
                 break;
@@ -129,11 +129,7 @@ public class AdminHomeActivity extends AppCompatActivity {
 
             case "logout":{
                 Log.d(TAG, "Logout clicked");
-                // Begin the transaction
-                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.admin_fragment_placeholder, new AdminInboxFragment());
-                ft.commit();
-
+                onBackPressed();
                 break;
             }
 

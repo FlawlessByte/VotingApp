@@ -57,6 +57,8 @@ public class AdminInboxFragment extends Fragment {
         recyclerView.setAdapter(mAdapter);
         mAdapter.notifyDataSetChanged();
 
+        getData();
+
 
         return root;
     }
@@ -67,7 +69,7 @@ public class AdminInboxFragment extends Fragment {
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        mDatabase.child("students").addValueEventListener(new ValueEventListener() {
+        mDatabase.child("teachers").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Log.d(TAG, "onDataChange");
