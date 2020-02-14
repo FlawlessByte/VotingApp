@@ -21,25 +21,41 @@
     </com.google.android.material.appbar.AppBarLayout>
 
 
-
-    <androidx.appcompat.widget.AppCompatButton
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Union Fee Payment"
-        android:layout_marginBottom="6dp"
-        android:id="@+id/buttonUnionFeePayment"
         android:layout_centerInParent="true"
-        android:textColor="@color/white"
-        android:background="@drawable/btn_rounded"/>
+        android:orientation="vertical">
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/buttonVoteCandidate"
-        android:layout_below="@id/buttonUnionFeePayment"
-        android:layout_marginBottom="10dp"
-        android:text="Vote Candidate"
-        android:textColor="@color/white"
-        android:background="@drawable/btn_rounded"/>
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Union Fee Payment"
+            android:layout_marginBottom="6dp"
+            android:id="@+id/buttonUnionFeePayment"
+            android:textColor="@color/white"
+            android:background="@drawable/btn_rounded"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonVoteCandidate"
+            android:layout_marginBottom="10dp"
+            android:text="Vote Candidate"
+            android:textColor="@color/white"
+            android:background="@drawable/btn_rounded"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonSignOutStudent"
+            android:layout_marginBottom="10dp"
+            android:text="Sign Out"
+            android:textColor="@color/white"
+            android:background="@drawable/btn_rounded"/>
+
+    </LinearLayout>
+
+
 
 </RelativeLayout>

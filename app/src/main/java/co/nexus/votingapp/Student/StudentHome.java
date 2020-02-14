@@ -26,7 +26,7 @@ import co.nexus.votingapp.Helpers.Student;
 import co.nexus.votingapp.R;
 
 public class StudentHome extends AppCompatActivity {
-    private Button buttonFeePayment, buttonVoteCandidate;
+    private Button buttonFeePayment, buttonVoteCandidate, buttonSignOut;
     private ActionBar actionBar;
     private Toolbar toolbar;
     private final String TAG = "StudentHome";
@@ -68,6 +68,16 @@ public class StudentHome extends AppCompatActivity {
 
         buttonFeePayment = findViewById(R.id.buttonUnionFeePayment);
         buttonVoteCandidate = findViewById(R.id.buttonVoteCandidate);
+        buttonSignOut = findViewById(R.id.buttonSignOutStudent);
+
+
+        buttonSignOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                onBackPressed();
+            }
+        });
 
         buttonVoteCandidate.setOnClickListener(new View.OnClickListener() {
             @Override
