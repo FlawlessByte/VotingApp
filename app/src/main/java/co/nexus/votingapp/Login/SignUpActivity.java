@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -54,6 +55,11 @@ public class SignUpActivity extends AppCompatActivity {
 
 
     private void doSignUpStuff(String username, String password){
+        if(TextUtils.isEmpty(username) || TextUtils.isEmpty(password)){
+            Toast.makeText(this, "Please fill out the fields and try again!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         if(Constants.category.equals("student")){
             Log.d(TAG, "Student sign in");
             Intent intent = new Intent(SignUpActivity.this, StudentRegister.class);
