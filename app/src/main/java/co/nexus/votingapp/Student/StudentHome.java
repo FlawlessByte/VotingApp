@@ -38,18 +38,21 @@ public class StudentHome extends AppCompatActivity {
     private ProgressDialog progressDialog;
     private String uid;
     private DatabaseReference mRef;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_home);
 
+        mAuth = FirebaseAuth.getInstance();
+
 
         initialiseSharedPrefs();
 
         progressDialog = showProgressDialog();
 
-        uid = FirebaseAuth.getInstance().getUid();
+        uid = mAuth.getUid();
         mRef = FirebaseDatabase.getInstance().getReference();
         mRef.child("students").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -76,13 +79,7 @@ public class StudentHome extends AppCompatActivity {
         layoutSignOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
-                SharedPreferences pref = getSharedPreferences(Constants.user_prof, Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = pref.edit();
-                editor.putString("currentUser", "none");
-                editor.apply();
-                startActivity(new Intent(StudentHome.this, MainActivity.class));
-                finish();
+                showLogOutConfirmDialog();
             }
         });
 
@@ -105,6 +102,26 @@ public class StudentHome extends AppCompatActivity {
                     Toast.makeText(StudentHome.this, "Your account is not yet confirmed by the teacher!", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void showLogOutConfirmDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Log Out");
+        builder.setMessage("Are you sure you want to log out?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                mAuth.signOut();
+                SharedPreferences pref = getSharedPreferences(Constants.user_prof, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putString("currentUser", "none");
+                editor.apply();
+                startActivity(new Intent(StudentHome.this, MainActivity.class));
+                finish();
+            }
+        });
+        builder.setNegativeButton("No", null);
+        builder.show();
     }
 
 

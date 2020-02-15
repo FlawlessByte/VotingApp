@@ -66,6 +66,7 @@ public class StudentRegister extends AppCompatActivity {
         editTextStudentPhone = findViewById(R.id.editTextStudentPhone);
         radioGroupStudentGender = findViewById(R.id.radioGroupStudentGender);
 
+
         editTextStudentDept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,9 +92,6 @@ public class StudentRegister extends AppCompatActivity {
                     intent.putExtra("user", student);
                     intent.putExtra("category", "teacher");
                     startActivity(intent);
-                }
-                else{
-                    Toast.makeText(getApplicationContext(), "Please fill all the inputs and try again!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -130,16 +128,47 @@ public class StudentRegister extends AppCompatActivity {
 
     private int checkInputs(){
         int errorCount = 0;
-        if(TextUtils.isEmpty(editTextStudentName.getText()) || TextUtils.isEmpty(editTextStudentDOB.getText()) || TextUtils.isEmpty(editTextStudentAdmNo.getText())
-        || TextUtils.isEmpty(editTextStudentYOJ.getText()) || TextUtils.isEmpty(editTextStudentYOS.getText()) || TextUtils.isEmpty(editTextStudentPhone.getText()))
+
+        if(TextUtils.isEmpty(editTextStudentName.getText())) {
+            editTextStudentName.setError("Please provide a name!");
             errorCount++;
+        }
+
+        if(TextUtils.isEmpty(editTextStudentDOB.getText())) {
+            editTextStudentDOB.setError("Please provide a date of birth!");
+            errorCount++;
+        }
+
+        if(TextUtils.isEmpty(editTextStudentAdmNo.getText())) {
+            editTextStudentAdmNo.setError("Please provide the admission number!");
+            errorCount++;
+        }
+
+        if(TextUtils.isEmpty(editTextStudentYOJ.getText())) {
+            editTextStudentYOJ.setError("Please provide the joining year!");
+            errorCount++;
+        }
+
+        if(TextUtils.isEmpty(editTextStudentYOS.getText())) {
+            editTextStudentYOS.setError("Please provide the year of study!");
+            errorCount++;
+        }
+
+        if(TextUtils.isEmpty(editTextStudentPhone.getText())) {
+            editTextStudentPhone.setError("Please provide a phone number!");
+            errorCount++;
+        }
 
         String ph_no = editTextStudentPhone.getText().toString();
-        if(ph_no.length() != 10 || !TextUtils.isDigitsOnly(ph_no))
+        if(ph_no.length() != 10 || !TextUtils.isDigitsOnly(ph_no)) {
             errorCount++;
+            editTextStudentPhone.setError("Enter a valid phone number!");
+        }
 
-        if(editTextStudentDept.getText().toString().equals("Department"))
+        if(editTextStudentDept.getText().toString().equals("Department")) {
+            Toast.makeText(this, "Please select a department!", Toast.LENGTH_SHORT).show();
             errorCount++;
+        }
 
         return errorCount;
 
@@ -159,12 +188,4 @@ public class StudentRegister extends AppCompatActivity {
         builder.show();
     }
 
-    private void initToolbar() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setHomeButtonEnabled(true);
-        actionBar.setTitle("Register");
-    }
 }

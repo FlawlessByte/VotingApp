@@ -50,16 +50,21 @@ public class SignUpActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.d(TAG, "SignUpButton Clicked");
 
-                doSignUpStuff(emailInputSignUp.getText().toString(), passwordInputSignUp.getText().toString());
+                doSignUpStuff(emailInputSignUp.getText().toString(), passwordInputSignUp.getText().toString(), confirmPasswordInputSignUp.getText().toString());
 //                createUser(emailInputSignUp.getText().toString(), passwordInputSignUp.getText().toString());
             }
         });
     }
 
 
-    private void doSignUpStuff(String username, String password){
-        if(TextUtils.isEmpty(username) || TextUtils.isEmpty(password)){
+    private void doSignUpStuff(String username, String password, String passwordConfirm){
+        if(TextUtils.isEmpty(username) || TextUtils.isEmpty(password) || TextUtils.isEmpty(passwordConfirm)){
             Toast.makeText(this, "Please fill out the fields and try again!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if(!password.equals(passwordConfirm)){
+            Toast.makeText(this, "Passwords do not match!", Toast.LENGTH_SHORT).show();
             return;
         }
 

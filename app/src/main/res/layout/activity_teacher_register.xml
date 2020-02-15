@@ -61,6 +61,7 @@
                 android:layout_height="@dimen/spacing_xxlarge"
                 android:layout_marginTop="@dimen/spacing_large"
                 android:textColorHint="@color/grey_20"
+                app:errorEnabled="true"
                 app:boxStrokeColor="@color/grey_80">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -77,6 +78,7 @@
                 style="@style/TextLabel"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/spacing_xxlarge"
+                app:errorEnabled="true"
                 android:layout_marginTop="@dimen/spacing_large"
                 android:textColorHint="@color/grey_20"
                 app:boxStrokeColor="@color/grey_80">
@@ -97,6 +99,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/spacing_xxlarge"
                 android:layout_marginTop="@dimen/spacing_large"
+                app:errorEnabled="true"
                 android:textColorHint="@color/grey_20"
                 app:boxStrokeColor="@color/grey_80">
 
@@ -176,6 +179,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/spacing_xxlarge"
                 android:layout_marginTop="@dimen/spacing_large"
+                app:errorEnabled="true"
                 android:textColorHint="@color/grey_20"
                 app:boxStrokeColor="@color/grey_80">
 
@@ -197,6 +201,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/spacing_xxlarge"
                 android:layout_marginTop="@dimen/spacing_large"
+                app:errorEnabled="true"
                 android:textColorHint="@color/grey_20"
                 app:boxStrokeColor="@color/grey_80">
 

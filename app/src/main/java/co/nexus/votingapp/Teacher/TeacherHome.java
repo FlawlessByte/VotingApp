@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.balysv.materialripple.MaterialRippleLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -30,7 +31,7 @@ import co.nexus.votingapp.R;
 import co.nexus.votingapp.Student.StudentHome;
 
 public class TeacherHome extends AppCompatActivity {
-    private Button buttonAddCandidate, buttonTeacherInbox, buttonTeacherLogOut;
+    private MaterialRippleLayout addCandidate, inbox, logOut;
     private final String TAG = "TeacherHome";
     private FirebaseAuth mAuth;
     private DatabaseReference mRef;
@@ -65,15 +66,13 @@ public class TeacherHome extends AppCompatActivity {
             }
         });
 
-
-
-        buttonAddCandidate = findViewById(R.id.buttonAddCandidate);
-        buttonTeacherInbox = findViewById(R.id.buttonTeacherInbox);
-        buttonTeacherLogOut = findViewById(R.id.buttonTeacherSignOut);
+        addCandidate = findViewById(R.id.layoutAddCandidate);
+        inbox = findViewById(R.id.layoutTeacherInbox);
+        logOut = findViewById(R.id.layoutTeacherSignOut);
 
         mAuth = FirebaseAuth.getInstance();
 
-        buttonAddCandidate.setOnClickListener(new View.OnClickListener() {
+        addCandidate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "Add Candidate clicked!");
@@ -84,7 +83,7 @@ public class TeacherHome extends AppCompatActivity {
             }
         });
 
-        buttonTeacherInbox.setOnClickListener(new View.OnClickListener() {
+        inbox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "Inbox clicked!");
@@ -95,10 +94,23 @@ public class TeacherHome extends AppCompatActivity {
             }
         });
 
-        buttonTeacherLogOut.setOnClickListener(new View.OnClickListener() {
+        logOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "Sign Out clicked!");
+                showLogOutConfirmDialog();
+            }
+        });
+
+    }
+
+    private void showLogOutConfirmDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Log Out");
+        builder.setMessage("Are you sure you want to log out?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
                 mAuth.signOut();
                 SharedPreferences pref = getSharedPreferences(Constants.user_prof, Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = pref.edit();
@@ -108,7 +120,8 @@ public class TeacherHome extends AppCompatActivity {
                 finish();
             }
         });
-
+        builder.setNegativeButton("No", null);
+        builder.show();
     }
 
 

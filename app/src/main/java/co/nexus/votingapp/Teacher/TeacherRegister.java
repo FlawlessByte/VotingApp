@@ -105,28 +105,48 @@ public class TeacherRegister extends AppCompatActivity {
     }
 
 
-//    private void writeRegisterInfoToDB(){
-//
-//        Teacher teacher = getTeacherObject();
-//
-//
-//        mDatabase.child("teachers").child(id).setValue(teacher);
-//
-//        Toast.makeText(getApplicationContext(), "Successfully registered!", Toast.LENGTH_SHORT).show();
-//    }
-
     private int checkInputs(){
         int errorCount = 0;
-        if(TextUtils.isEmpty(editTextTeacherName.getText()) || TextUtils.isEmpty(editTextTeacherDOB.getText()) || TextUtils.isEmpty(editTextTeacherID.getText())
-                || TextUtils.isEmpty(editTextTeacherYOJ.getText()) || TextUtils.isEmpty(editTextTeacherPhone.getText()))
-            errorCount++;
-
-        String ph_no = editTextTeacherPhone.getText().toString();
-        if(ph_no.length() != 10 || !TextUtils.isDigitsOnly(ph_no))
-            errorCount++;
 
         if(editTextTeacherDept.getText().toString().equals("Department"))
             errorCount++;
+
+        if(TextUtils.isEmpty(editTextTeacherName.getText())) {
+            editTextTeacherName.setError("Please provide a name!");
+            errorCount++;
+        }
+
+        if(TextUtils.isEmpty(editTextTeacherDOB.getText())) {
+            editTextTeacherDOB.setError("Please provide a date of birth!");
+            errorCount++;
+        }
+
+        if(TextUtils.isEmpty(editTextTeacherID.getText())) {
+            editTextTeacherID.setError("Please provide the ID number!");
+            errorCount++;
+        }
+
+        if(TextUtils.isEmpty(editTextTeacherYOJ.getText())) {
+            editTextTeacherYOJ.setError("Please provide the joining year!");
+            errorCount++;
+        }
+
+
+        if(TextUtils.isEmpty(editTextTeacherPhone.getText())) {
+            editTextTeacherPhone.setError("Please provide a phone number!");
+            errorCount++;
+        }
+
+        String ph_no = editTextTeacherPhone.getText().toString();
+        if(ph_no.length() != 10 || !TextUtils.isDigitsOnly(ph_no)) {
+            errorCount++;
+            editTextTeacherPhone.setError("Enter a valid phone number!");
+        }
+
+        if(editTextTeacherDept.getText().toString().equals("Department")) {
+            Toast.makeText(this, "Please select a department!", Toast.LENGTH_SHORT).show();
+            errorCount++;
+        }
 
         return errorCount;
 
@@ -146,12 +166,4 @@ public class TeacherRegister extends AppCompatActivity {
         builder.show();
     }
 
-    private void initToolbar() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setHomeButtonEnabled(true);
-        actionBar.setTitle("Register");
-    }
 }

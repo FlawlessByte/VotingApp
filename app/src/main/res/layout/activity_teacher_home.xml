@@ -39,45 +39,178 @@
         android:layout_height="1dp"
         android:background="@color/grey_600"/>
 
-
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <androidx.appcompat.widget.AppCompatButton
+
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Add Candidate"
-            android:layout_marginBottom="6dp"
-            android:id="@+id/buttonAddCandidate"
-            android:layout_centerInParent="true"
-            android:textColor="@color/white"
-            android:background="@drawable/btn_rounded"/>
+            android:layout_height="match_parent"
+            app:cardElevation="10dp"
+            android:layout_weight="1">
 
-        <androidx.appcompat.widget.AppCompatButton
+            <ImageView
+                android:id="@+id/image_pay"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/img_people" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/overlay_dark_60" />
+
+            <com.balysv.materialripple.MaterialRippleLayout
+                style="@style/RippleStyleWhite"
+                android:id="@+id/layoutAddCandidate"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="@dimen/spacing_large">
+
+
+                    <Button
+                        android:id="@+id/brief"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/spacing_xlarge"
+                        android:layout_marginTop="@dimen/spacing_small"
+                        android:background="@drawable/btn_rounded_white_outline"
+                        android:enabled="false"
+                        android:paddingLeft="@dimen/spacing_xlarge"
+                        android:paddingRight="@dimen/spacing_xlarge"
+                        android:text="Add Candidate"
+                        android:textColor="@android:color/white" />
+
+
+                </LinearLayout>
+
+            </com.balysv.materialripple.MaterialRippleLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <View
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/buttonTeacherInbox"
-            android:layout_below="@id/buttonAddCandidate"
-            android:layout_marginBottom="10dp"
-            android:text="Inbox"
-            android:textColor="@color/white"
-            android:background="@drawable/btn_rounded"/>
+            android:layout_height="1dp"
+            android:background="@color/grey_10"/>
 
-        <androidx.appcompat.widget.AppCompatButton
+
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/buttonTeacherSignOut"
-            android:layout_below="@id/buttonTeacherInbox"
-            android:layout_marginBottom="10dp"
-            android:text="Sign Out"
-            android:textColor="@color/white"
-            android:background="@drawable/btn_rounded"/>
+            android:layout_height="match_parent"
+            app:cardElevation="10dp"
+            android:layout_weight="1">
 
-    </RelativeLayout>
+            <ImageView
+                android:id="@+id/image_bg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/img_inbox" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/overlay_dark_60" />
+
+            <com.balysv.materialripple.MaterialRippleLayout
+                style="@style/RippleStyleWhite"
+                android:id="@+id/layoutTeacherInbox"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:id="@+id/lyt_parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="@dimen/spacing_large">
+
+                    <Button
+                        android:id="@+id/brief2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/spacing_xlarge"
+                        android:layout_marginTop="@dimen/spacing_small"
+                        android:background="@drawable/btn_rounded_white_outline"
+                        android:enabled="false"
+                        android:paddingLeft="@dimen/spacing_xlarge"
+                        android:paddingRight="@dimen/spacing_xlarge"
+                        android:text="Inbox"
+                        android:textColor="@android:color/white" />
 
 
+                </LinearLayout>
+
+            </com.balysv.materialripple.MaterialRippleLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/grey_10"/>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:cardElevation="10dp"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/image_bg3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/img_logout" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/overlay_dark_40" />
+
+            <com.balysv.materialripple.MaterialRippleLayout
+                style="@style/RippleStyleWhite"
+                android:id="@+id/layoutTeacherSignOut"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="@dimen/spacing_large">
+
+                    <Button
+                        android:id="@+id/brief3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/spacing_xlarge"
+                        android:layout_marginTop="@dimen/spacing_small"
+                        android:background="@drawable/btn_rounded_white_outline"
+                        android:enabled="false"
+                        android:paddingLeft="@dimen/spacing_xlarge"
+                        android:paddingRight="@dimen/spacing_xlarge"
+                        android:text="Log Out"
+                        android:textColor="@android:color/white" />
 
 
+                </LinearLayout>
+
+            </com.balysv.materialripple.MaterialRippleLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
 
 </LinearLayout>

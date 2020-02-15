@@ -64,7 +64,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/overlay_dark_50" />
+                android:background="@color/overlay_dark_60" />
 
             <com.balysv.materialripple.MaterialRippleLayout
                 style="@style/RippleStyleWhite"
@@ -122,7 +122,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/overlay_dark_50" />
+                android:background="@color/overlay_dark_60" />
 
             <com.balysv.materialripple.MaterialRippleLayout
                 style="@style/RippleStyleWhite"
@@ -179,7 +179,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/overlay_dark_50" />
+                android:background="@color/overlay_dark_40" />
 
             <com.balysv.materialripple.MaterialRippleLayout
                 style="@style/RippleStyleWhite"
@@ -204,7 +204,7 @@
                         android:enabled="false"
                         android:paddingLeft="@dimen/spacing_xlarge"
                         android:paddingRight="@dimen/spacing_xlarge"
-                        android:text="Sign Out"
+                        android:text="Log Out"
                         android:textColor="@android:color/white" />
 
 
@@ -213,35 +213,6 @@
             </com.balysv.materialripple.MaterialRippleLayout>
 
         </androidx.cardview.widget.CardView>
-
-
-
-<!--        <androidx.appcompat.widget.AppCompatButton-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="Union Fee Payment"-->
-<!--            android:layout_marginBottom="6dp"-->
-<!--            android:id="@+id/buttonUnionFeePayment"-->
-<!--            android:textColor="@color/white"-->
-<!--            android:background="@drawable/btn_rounded"/>-->
-
-<!--        <androidx.appcompat.widget.AppCompatButton-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:id="@+id/buttonVoteCandidate"-->
-<!--            android:layout_marginBottom="10dp"-->
-<!--            android:text="Vote Candidate"-->
-<!--            android:textColor="@color/white"-->
-<!--            android:background="@drawable/btn_rounded"/>-->
-
-<!--        <androidx.appcompat.widget.AppCompatButton-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:id="@+id/buttonSignOutStudent"-->
-<!--            android:layout_marginBottom="10dp"-->
-<!--            android:text="Sign Out"-->
-<!--            android:textColor="@color/white"-->
-<!--            android:background="@drawable/btn_rounded"/>-->
 
     </LinearLayout>
 
