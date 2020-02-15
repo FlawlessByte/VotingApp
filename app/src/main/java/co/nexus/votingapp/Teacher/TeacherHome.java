@@ -1,10 +1,14 @@
 package co.nexus.votingapp.Teacher;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -19,6 +23,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import co.nexus.votingapp.Helpers.Constants;
 import co.nexus.votingapp.Helpers.Teacher;
 import co.nexus.votingapp.MainActivity;
 import co.nexus.votingapp.R;
@@ -106,5 +111,30 @@ public class TeacherHome extends AppCompatActivity {
         dialog.setMessage("Please wait!");
         dialog.show();
         return dialog;
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        Log.d(TAG, "OnBackPressed");
+        SharedPreferences pref = getSharedPreferences(Constants.user_prof, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString("currentUser", "teacher");
+        editor.apply();
+        showConfirmDialog();
+    }
+
+    private void showConfirmDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Exit App");
+        builder.setMessage("Are you sure you want to exit the app?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                finishAffinity();
+            }
+        });
+        builder.setNegativeButton("No", null);
+        builder.show();
     }
 }

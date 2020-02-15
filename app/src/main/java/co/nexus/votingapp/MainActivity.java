@@ -34,6 +34,8 @@ import co.nexus.votingapp.Helpers.Constants;
 import co.nexus.votingapp.Helpers.Notification;
 import co.nexus.votingapp.Helpers.NotificationAdapter;
 import co.nexus.votingapp.Login.SignInActivity;
+import co.nexus.votingapp.Student.StudentHome;
+import co.nexus.votingapp.Teacher.TeacherHome;
 
 public class MainActivity extends AppCompatActivity {
     private ActionBar actionBar;
@@ -53,8 +55,19 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //Manage the signed in users
-//        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
-//        String user = sharedPref.getString("currentUser", "none");
+        SharedPreferences sharedPref = getSharedPreferences(Constants.user_prof,Context.MODE_PRIVATE);
+        String user = sharedPref.getString("currentUser", "none");
+        Log.d(TAG, "Current User : "+user);
+        switch (user){
+            case "student": {
+                startActivity(new Intent(MainActivity.this, StudentHome.class));
+                break;
+            }
+            case "teacher": {
+                startActivity(new Intent(MainActivity.this, TeacherHome.class));
+                break;
+            }
+        }
 
 
 

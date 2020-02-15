@@ -59,6 +59,7 @@ public class SignInActivity extends AppCompatActivity {
                                     else{
                                         startActivity(new Intent(SignInActivity.this, TeacherHome.class));
                                     }
+                                    finish();
 
 
                                 } else {
@@ -78,6 +79,7 @@ public class SignInActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.d(TAG, "Sign Up Button Clicked!");
                 startActivity(new Intent(SignInActivity.this, SignUpActivity.class));
+                finish();
             }
         });
 

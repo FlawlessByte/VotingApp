@@ -29,13 +29,13 @@
             android:layout_width="280dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_medium"
-            android:text="Please enter your mobile number to receive a verification code. Carrier rates may apply"
+            android:text="We have sent an OTP to your number. Please enter the OTP!"
             android:gravity="center"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
             android:textColor="@color/grey_60" />
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/spacing_large"
             android:layout_marginTop="@dimen/spacing_xlarge"
@@ -57,7 +57,7 @@
                 android:layout_height="0dp" />
 
             <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="Phone Number"
                 android:inputType="phone"
@@ -65,7 +65,7 @@
                 android:enabled="false"
                 android:id="@+id/phoneNumberField"
                 android:singleLine="true"
-                android:text="9767 0587 7834"
+                android:text="67 0587 7834"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
                 android:textColor="@color/grey_90"
                 android:textStyle="bold" >
@@ -76,13 +76,6 @@
 
         </LinearLayout>
 
-        <Button
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/btn_rounded_red"
-            android:text="SEND OTP"
-            android:id="@+id/phoneSendOTP"
-            android:textColor="@android:color/white" />
 
 
         <com.google.android.material.textfield.TextInputEditText
@@ -91,7 +84,6 @@
             android:hint="Enter OTP"
             android:inputType="phone"
             android:maxLines="1"
-            android:visibility="invisible"
             android:id="@+id/smsCodeField"
             android:singleLine="true"
             android:maxLength="6"

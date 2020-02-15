@@ -1,8 +1,10 @@
 package co.nexus.votingapp.Login;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -32,6 +34,7 @@ import java.util.concurrent.TimeUnit;
 import co.nexus.votingapp.Helpers.Constants;
 import co.nexus.votingapp.Helpers.Student;
 import co.nexus.votingapp.Helpers.Teacher;
+import co.nexus.votingapp.MainActivity;
 import co.nexus.votingapp.R;
 import co.nexus.votingapp.Student.StudentHome;
 import co.nexus.votingapp.Teacher.TeacherHome;
@@ -58,7 +61,6 @@ public class PhoneNoActivity extends AppCompatActivity {
 
         numberField = findViewById(R.id.phoneNumberField);
         verifyButton = findViewById(R.id.phoneVerifyContinue);
-        sendOTPButton = findViewById(R.id.phoneSendOTP);
 
         verifyButton.setVisibility(View.INVISIBLE);
         numberField.setText(phone);
@@ -68,18 +70,7 @@ public class PhoneNoActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        sendOTPButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String number = numberField.getText().toString();
-                if(number.length() == 10){
-                    sendOTPButton.setVisibility(View.INVISIBLE);
-                    codeField.setVisibility(View.VISIBLE);
-                    verifyButton.setVisibility(View.VISIBLE);
-                    doSmsStuff(countryCode+number);
-                }
-            }
-        });
+        doSmsStuff(countryCode+phone);
 
         verifyButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -227,6 +218,7 @@ public class PhoneNoActivity extends AppCompatActivity {
                         });
 
                         startActivity(new Intent(PhoneNoActivity.this, StudentHome.class));
+                        finish();
                     }
                     else if(Constants.category.equals("teacher")){
                         Log.d(TAG, "teacher prof update");
@@ -245,6 +237,7 @@ public class PhoneNoActivity extends AppCompatActivity {
                         });
 
                         startActivity(new Intent(PhoneNoActivity.this, TeacherHome.class));
+                        finish();
                     }
 
 
@@ -302,5 +295,24 @@ public class PhoneNoActivity extends AppCompatActivity {
 //    }
 
 
+    @Override
+    public void onBackPressed() {
+        Log.d(TAG, "OnBackPressed");
+        showConfirmDialog();
+    }
 
+    private void showConfirmDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Exit Registration");
+        builder.setMessage("Are you sure you want to exit registration?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                startActivity(new Intent(PhoneNoActivity.this, MainActivity.class));
+                finish();
+            }
+        });
+        builder.setNegativeButton("No", null);
+        builder.show();
+    }
 }

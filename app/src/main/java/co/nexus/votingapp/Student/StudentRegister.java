@@ -21,6 +21,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import co.nexus.votingapp.Helpers.Constants;
 import co.nexus.votingapp.Helpers.Student;
 import co.nexus.votingapp.Login.PhoneNoActivity;
 import co.nexus.votingapp.R;
@@ -146,15 +147,12 @@ public class StudentRegister extends AppCompatActivity {
 
 
     private void showDepartmentDialog(final View v) {
-        final String[] array = new String[]{
-                "Mathematics", "Physics", "Chemistry", "BCA", "CS", "Zoology"
-        };
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Department");
-        builder.setSingleChoiceItems(array, -1, new DialogInterface.OnClickListener() {
+        builder.setSingleChoiceItems(Constants.departments, -1, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                ((EditText) v).setText(array[i]);
+                ((EditText) v).setText(Constants.departments[i]);
                 dialogInterface.dismiss();
             }
         });

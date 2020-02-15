@@ -1,8 +1,10 @@
 package co.nexus.votingapp.Login;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -19,6 +21,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import co.nexus.votingapp.Helpers.Constants;
+import co.nexus.votingapp.MainActivity;
 import co.nexus.votingapp.R;
 import co.nexus.votingapp.Student.StudentRegister;
 import co.nexus.votingapp.Teacher.TeacherRegister;
@@ -66,6 +69,7 @@ public class SignUpActivity extends AppCompatActivity {
             intent.putExtra("username", username);
             intent.putExtra("password", password);
             startActivity(intent);
+            finish();
         }
         else {
             Log.d(TAG, "teacher sign in");
@@ -73,6 +77,7 @@ public class SignUpActivity extends AppCompatActivity {
             intent.putExtra("username", username);
             intent.putExtra("password", password);
             startActivity(intent);
+            finish();
         }
 
     }
@@ -108,5 +113,27 @@ public class SignUpActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        Log.d(TAG, "OnBackPressed");
+        showConfirmDialog();
+    }
+
+    private void showConfirmDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Exit Registration");
+        builder.setMessage("Are you sure you want to exit registration?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                startActivity(new Intent(SignUpActivity.this, MainActivity.class));
+                finish();
+            }
+        });
+        builder.setNegativeButton("No", null);
+        builder.show();
     }
 }

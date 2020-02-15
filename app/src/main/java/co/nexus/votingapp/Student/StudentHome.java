@@ -2,10 +2,13 @@ package co.nexus.votingapp.Student;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -127,5 +130,30 @@ public class StudentHome extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
         actionBar.setTitle("Student");
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        Log.d(TAG, "OnBackPressed");
+        SharedPreferences pref = getSharedPreferences(Constants.user_prof, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString("currentUser", "student");
+        editor.apply();
+        showConfirmDialog();
+    }
+
+    private void showConfirmDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Exit App");
+        builder.setMessage("Are you sure you want to exit the app?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                finishAffinity();
+            }
+        });
+        builder.setNegativeButton("No", null);
+        builder.show();
     }
 }
