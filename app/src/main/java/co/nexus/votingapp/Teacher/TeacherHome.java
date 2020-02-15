@@ -41,8 +41,9 @@ public class TeacherHome extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         uid = mAuth.getUid();
+        Log.d(TAG, "UID : "+uid);
         mRef = FirebaseDatabase.getInstance().getReference();
-        mRef.child("students").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+        mRef.child("teachers").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Log.d(TAG, "onDataChange");
