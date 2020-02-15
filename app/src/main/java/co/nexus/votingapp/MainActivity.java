@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -58,16 +59,22 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPref = getSharedPreferences(Constants.user_prof,Context.MODE_PRIVATE);
         String user = sharedPref.getString("currentUser", "none");
         Log.d(TAG, "Current User : "+user);
-        switch (user){
-            case "student": {
-                startActivity(new Intent(MainActivity.this, StudentHome.class));
-                break;
+
+        if(FirebaseAuth.getInstance().getUid() != null)
+            switch (user){
+                case "student": {
+                    startActivity(new Intent(MainActivity.this, StudentHome.class));
+                    finish();
+                    break;
+                }
+                case "teacher": {
+                    startActivity(new Intent(MainActivity.this, TeacherHome.class));
+                    finish();
+                    break;
+                }
             }
-            case "teacher": {
-                startActivity(new Intent(MainActivity.this, TeacherHome.class));
-                break;
-            }
-        }
+        else
+            Log.d(TAG, "Auth null");
 
 
 
@@ -162,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
         actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
-        actionBar.setTitle("Drawer Simple Light");
+        actionBar.setTitle("Voting App");
     }
 
     private void initNavigationMenu() {
@@ -178,33 +185,38 @@ public class MainActivity extends AppCompatActivity {
         nav_view.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(final MenuItem item) {
-                Toast.makeText(getApplicationContext(), item.getTitle() + " Selected", Toast.LENGTH_SHORT).show();
-                actionBar.setTitle(item.getTitle());
+//                Toast.makeText(getApplicationContext(), item.getTitle() + " Selected", Toast.LENGTH_SHORT).show();
+//                actionBar.setTitle(item.getTitle());
 
                 switch (item.getTitle().toString()){
                     case "Student Login": {
                         Constants.category = "student";
                         startActivity(new Intent(MainActivity.this, SignInActivity.class));
+                        finish();
                         break;
                     }
                     case "Teacher Login": {
                         Constants.category = "teacher";
                         startActivity(new Intent(MainActivity.this, SignInActivity.class));
+                        finish();
                         break;
                     }
                     case "Admin Login": {
                         Log.d(TAG, "Admin login clicked");
                         startActivity(new Intent(MainActivity.this, AdminLoginActivity.class));
+                        finish();
                         break;
                     }
                     case "Gallery": {
                         Log.d(TAG, "Gallery clicked");
                         startActivity(new Intent(MainActivity.this, GalleryActivity.class));
+                        finish();
                         break;
                     }
                     case "About": {
                         Log.d(TAG, "About clicked");
                         startActivity(new Intent(MainActivity.this, AboutActivity.class));
+                        finish();
                         break;
                     }
 

@@ -203,7 +203,8 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:hint="Phone No."
+                    android:hint="Enter 10 Digit Phone Number"
+                    android:maxLength="10"
                     android:id="@+id/editTextTeacherPhone"
                     android:inputType="number"
                     android:textColor="@color/blue_grey_900"

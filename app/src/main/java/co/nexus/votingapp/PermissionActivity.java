@@ -28,6 +28,7 @@ public class PermissionActivity extends AppCompatActivity {
         if(hasPermission()){
             Log.d(TAG, "Permission is granted already");
             startActivity(new Intent(PermissionActivity.this, MainActivity.class));
+            finish();
         }
 
 
@@ -39,6 +40,7 @@ public class PermissionActivity extends AppCompatActivity {
                 .withListener(new PermissionListener() {
                     @Override public void onPermissionGranted(PermissionGrantedResponse response) {
                         startActivity(new Intent(PermissionActivity.this, MainActivity.class));
+                        finish();
                     }
                     @Override public void onPermissionDenied(PermissionDeniedResponse response) {/* ... */}
                     @Override public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {/* ... */}

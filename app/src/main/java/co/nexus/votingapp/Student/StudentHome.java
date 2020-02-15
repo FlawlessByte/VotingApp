@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.balysv.materialripple.MaterialRippleLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -26,12 +27,12 @@ import com.google.firebase.database.ValueEventListener;
 
 import co.nexus.votingapp.Helpers.Constants;
 import co.nexus.votingapp.Helpers.Student;
+import co.nexus.votingapp.MainActivity;
 import co.nexus.votingapp.R;
 
 public class StudentHome extends AppCompatActivity {
     private Button buttonFeePayment, buttonVoteCandidate, buttonSignOut;
-    private ActionBar actionBar;
-    private Toolbar toolbar;
+    private MaterialRippleLayout layoutFeePayment, layoutVoteCandidate, layoutSignOut;
     private final String TAG = "StudentHome";
     private boolean isStudentAuthorized = false;
     private ProgressDialog progressDialog;
@@ -43,7 +44,6 @@ public class StudentHome extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_home);
 
-        initToolbar();
 
         initialiseSharedPrefs();
 
@@ -68,21 +68,25 @@ public class StudentHome extends AppCompatActivity {
         });
 
 
+        layoutFeePayment = findViewById(R.id.layoutFeePayment);
+        layoutVoteCandidate = findViewById(R.id.layoutVoteCandidate);
+        layoutSignOut = findViewById(R.id.layoutSignOut);
 
-        buttonFeePayment = findViewById(R.id.buttonUnionFeePayment);
-        buttonVoteCandidate = findViewById(R.id.buttonVoteCandidate);
-        buttonSignOut = findViewById(R.id.buttonSignOutStudent);
 
-
-        buttonSignOut.setOnClickListener(new View.OnClickListener() {
+        layoutSignOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
-                onBackPressed();
+                SharedPreferences pref = getSharedPreferences(Constants.user_prof, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putString("currentUser", "none");
+                editor.apply();
+                startActivity(new Intent(StudentHome.this, MainActivity.class));
+                finish();
             }
         });
 
-        buttonVoteCandidate.setOnClickListener(new View.OnClickListener() {
+        layoutVoteCandidate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(isStudentAuthorized)
@@ -92,7 +96,7 @@ public class StudentHome extends AppCompatActivity {
             }
         });
 
-        buttonFeePayment.setOnClickListener(new View.OnClickListener() {
+        layoutFeePayment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(isStudentAuthorized)
@@ -123,16 +127,6 @@ public class StudentHome extends AppCompatActivity {
         }
     }
 
-    private void initToolbar() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setHomeButtonEnabled(true);
-        actionBar.setTitle("Student");
-    }
-
-
     @Override
     public void onBackPressed() {
         Log.d(TAG, "OnBackPressed");
@@ -155,5 +149,9 @@ public class StudentHome extends AppCompatActivity {
         });
         builder.setNegativeButton("No", null);
         builder.show();
+    }
+
+    public void backButtonPressed(View view) {
+        onBackPressed();
     }
 }

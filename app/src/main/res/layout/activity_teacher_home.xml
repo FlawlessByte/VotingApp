@@ -1,57 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Student.StudentHome">
+    android:orientation="vertical"
+    tools:context=".Teacher.TeacherHome">
 
-    <!--toolbar and header-->
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/app_bar_layout"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:fitsSystemWindows="true"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        android:layout_height="?attr/actionBarSize">
 
-        <include layout="@layout/toolbars" />
+        <ImageButton
+            android:id="@+id/button_student_home"
+            android:layout_width="?attr/actionBarSize"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:tint="@color/grey_60"
+            android:onClick="backButtonPressed"
+            app:srcCompat="@drawable/ic_chevron_left" />
 
-    </com.google.android.material.appbar.AppBarLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:id="@+id/adminMenuTitleTextView"
+            android:text="Teacher Home"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:textColor="@color/grey_80"
+            app:fontFamily="sans-serif-medium" />
 
 
+    </RelativeLayout>
 
-    <androidx.appcompat.widget.AppCompatButton
+    <View
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Add Candidate"
-        android:layout_marginBottom="6dp"
-        android:id="@+id/buttonAddCandidate"
-        android:layout_centerInParent="true"
-        android:textColor="@color/white"
-        android:background="@drawable/btn_rounded"/>
+        android:layout_height="1dp"
+        android:background="@color/grey_600"/>
 
-    <androidx.appcompat.widget.AppCompatButton
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/buttonTeacherInbox"
-        android:layout_below="@id/buttonAddCandidate"
-        android:layout_marginBottom="10dp"
-        android:text="Inbox"
-        android:textColor="@color/white"
-        android:background="@drawable/btn_rounded"/>
+        android:layout_height="match_parent">
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/buttonTeacherSignOut"
-        android:layout_below="@id/buttonTeacherInbox"
-        android:layout_marginBottom="10dp"
-        android:text="Sign Out"
-        android:textColor="@color/white"
-        android:background="@drawable/btn_rounded"/>
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Add Candidate"
+            android:layout_marginBottom="6dp"
+            android:id="@+id/buttonAddCandidate"
+            android:layout_centerInParent="true"
+            android:textColor="@color/white"
+            android:background="@drawable/btn_rounded"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonTeacherInbox"
+            android:layout_below="@id/buttonAddCandidate"
+            android:layout_marginBottom="10dp"
+            android:text="Inbox"
+            android:textColor="@color/white"
+            android:background="@drawable/btn_rounded"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonTeacherSignOut"
+            android:layout_below="@id/buttonTeacherInbox"
+            android:layout_marginBottom="10dp"
+            android:text="Sign Out"
+            android:textColor="@color/white"
+            android:background="@drawable/btn_rounded"/>
+
+    </RelativeLayout>
 
 
 
-</RelativeLayout>
+
+
+</LinearLayout>

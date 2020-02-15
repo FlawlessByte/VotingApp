@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -80,5 +81,9 @@ public class TeacherInboxActivity extends AppCompatActivity {
         mAdapter = new StudentAdapter(this, students, keys);
         recyclerView.setAdapter(mAdapter);
         mAdapter.notifyDataSetChanged();
+    }
+
+    public void backButtonPressed(View view) {
+        onBackPressed();
     }
 }

@@ -27,6 +27,7 @@ import co.nexus.votingapp.Helpers.Constants;
 import co.nexus.votingapp.Helpers.Teacher;
 import co.nexus.votingapp.MainActivity;
 import co.nexus.votingapp.R;
+import co.nexus.votingapp.Student.StudentHome;
 
 public class TeacherHome extends AppCompatActivity {
     private Button buttonAddCandidate, buttonTeacherInbox, buttonTeacherLogOut;
@@ -99,7 +100,12 @@ public class TeacherHome extends AppCompatActivity {
             public void onClick(View v) {
                 Log.d(TAG, "Sign Out clicked!");
                 mAuth.signOut();
+                SharedPreferences pref = getSharedPreferences(Constants.user_prof, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putString("currentUser", "none");
+                editor.apply();
                 startActivity(new Intent(TeacherHome.this, MainActivity.class));
+                finish();
             }
         });
 
@@ -136,5 +142,9 @@ public class TeacherHome extends AppCompatActivity {
         });
         builder.setNegativeButton("No", null);
         builder.show();
+    }
+
+    public void backButtonPressed(View view) {
+        onBackPressed();
     }
 }

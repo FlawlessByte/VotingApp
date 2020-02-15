@@ -68,6 +68,7 @@ public class StudentVoteActivity extends AppCompatActivity {
     private void checkVoteEligible(){
 
         uid = FirebaseAuth.getInstance().getUid();
+        Log.d(TAG, "UID : "+uid);
         DatabaseReference mRef = FirebaseDatabase.getInstance().getReference();
         mRef.child("students").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -119,5 +120,9 @@ public class StudentVoteActivity extends AppCompatActivity {
         dialog.setMessage("Please wait!");
         dialog.show();
         return dialog;
+    }
+
+    public void backButtonPressed(View view) {
+        onBackPressed();
     }
 }

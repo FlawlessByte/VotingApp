@@ -1,29 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".Student.StudentVoteActivity">
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Male Candidate"
-        android:layout_marginBottom="6dp"
-        android:id="@+id/buttonStudentMaleCandidate"
-        android:layout_centerInParent="true"
-        android:textColor="@color/white"
-        android:background="@drawable/btn_rounded"/>
 
-    <androidx.appcompat.widget.AppCompatButton
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/buttonStudentFemaleCandidate"
-        android:layout_below="@id/buttonStudentMaleCandidate"
-        android:layout_marginBottom="10dp"
-        android:text="Female Candidate"
-        android:textColor="@color/white"
-        android:background="@drawable/btn_rounded"/>
+        android:layout_height="?attr/actionBarSize">
 
-</RelativeLayout>
+        <ImageButton
+            android:id="@+id/button_student_home"
+            android:layout_width="?attr/actionBarSize"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:tint="@color/grey_60"
+            android:onClick="backButtonPressed"
+            app:srcCompat="@drawable/ic_chevron_left" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:id="@+id/adminMenuTitleTextView"
+            android:text="Student Vote"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:textColor="@color/grey_80"
+            app:fontFamily="sans-serif-medium" />
+
+
+    </RelativeLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/grey_600"/>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:layout_gravity="center">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Male Candidate"
+            android:layout_marginBottom="6dp"
+            android:id="@+id/buttonStudentMaleCandidate"
+            android:layout_centerInParent="true"
+            android:textColor="@color/white"
+            android:background="@drawable/btn_rounded"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonStudentFemaleCandidate"
+            android:layout_below="@id/buttonStudentMaleCandidate"
+            android:layout_marginBottom="10dp"
+            android:text="Female Candidate"
+            android:textColor="@color/white"
+            android:background="@drawable/btn_rounded"/>
+
+    </RelativeLayout>
+
+
+
+</LinearLayout>
