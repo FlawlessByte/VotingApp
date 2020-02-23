@@ -59,45 +59,75 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Candidate Photo"
+                android:layout_marginTop="@dimen/spacing_mlarge"
+                android:text="Search candidate by admission number"
                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                 android:textColor="@color/grey_40" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing_middle"
-                android:background="@drawable/edit_text_round_bg_outline"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:id="@+id/candiatePhotoLinearLayout"
-                android:padding="@dimen/spacing_large">
 
-                <RelativeLayout
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:background="@color/grey_3">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/search_bar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/spacing_xmlarge"
+                android:clipToPadding="false"
+                app:cardBackgroundColor="@color/grey_3"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="0dp"
+                android:layout_marginTop="@dimen/spacing_middle"
+                app:cardUseCompatPadding="false">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="match_parent"
+                        android:layout_width="@dimen/spacing_xmlarge"
+                        android:layout_height="@dimen/spacing_xmlarge"
+                        android:padding="@dimen/spacing_middle"
+                        android:tint="@color/grey_40"
+                        app:srcCompat="@drawable/ic_search_black_24dp" />
+
+                    <EditText
+                        android:id="@+id/candidate_search"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:id="@+id/candidateProfileImageView"
-                        android:layout_centerInParent="true"
-                        android:tint="@color/grey_20"
-                        android:background="@drawable/image_placeholder"/>
+                        android:layout_weight="1"
+                        android:background="@android:color/transparent"
+                        android:hint="Type admission no."
+                        android:imeOptions="actionSearch"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead">
 
-                </RelativeLayout>
+                        <requestFocus />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:id="@+id/candidateImagePathTextView"
-                    android:text="Add Photo"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                    android:textColor="@color/grey_40" />
+                    </EditText>
 
-            </LinearLayout>
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/grey_20"
+                android:layout_marginTop="40dp"/>
+
+            <com.mikhaellopez.circularimageview.CircularImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginTop="@dimen/spacing_xlarge"
+                android:src="@drawable/prof_placeholder"
+                app:civ_border="true"
+                app:civ_shadow="true"
+                android:id="@+id/candidateProfImg"
+                android:layout_gravity="center_horizontal"
+                app:civ_shadow_radius="0dp"
+                app:civ_border_color="@color/colorPrimary"
+                app:civ_border_width="1dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -120,6 +150,7 @@
                     android:id="@+id/candidateNameEditText"
                     android:background="@drawable/edit_text_round_bg_outline"
                     android:hint="John Doe"
+                    android:enabled="false"
                     android:textColorHint="@color/grey_20" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -146,6 +177,7 @@
                     android:id="@+id/candidateDOBEditText"
                     android:background="@drawable/edit_text_round_bg_outline"
                     android:hint="01/01/2000"
+                    android:enabled="false"
                     android:textColorHint="@color/grey_20" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -195,7 +227,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_mlarge"
-                android:text="Date of Birth"
+                android:text="Department"
                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                 android:textColor="@color/grey_40" />
 
@@ -206,9 +238,7 @@
                 android:layout_height="45dp"
                 android:layout_marginTop="@dimen/spacing_middle"
                 android:background="@drawable/edit_text_round_bg_white"
-                android:drawableEnd="@drawable/ic_expand_arrow"
-                android:drawableRight="@drawable/ic_expand_arrow"
-                android:editable="false"
+                android:enabled="false"
                 android:focusable="false"
                 android:hint="Department"
                 android:backgroundTint="@color/grey_3"
@@ -231,9 +261,7 @@
                 android:layout_height="45dp"
                 android:layout_marginTop="@dimen/spacing_middle"
                 android:background="@drawable/edit_text_round_bg_white"
-                android:drawableEnd="@drawable/ic_expand_arrow"
-                android:drawableRight="@drawable/ic_expand_arrow"
-                android:editable="false"
+                android:enabled="false"
                 android:focusable="false"
                 android:hint="Year of Study"
                 android:backgroundTint="@color/grey_3"

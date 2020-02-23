@@ -6,13 +6,17 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.FirebaseException;
@@ -28,7 +32,11 @@ import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.File;
 import java.util.concurrent.TimeUnit;
 
 import co.nexus.votingapp.Helpers.Constants;
@@ -62,7 +70,6 @@ public class PhoneNoActivity extends AppCompatActivity {
         numberField = findViewById(R.id.phoneNumberField);
         verifyButton = findViewById(R.id.phoneVerifyContinue);
 
-        verifyButton.setVisibility(View.INVISIBLE);
         numberField.setText(phone);
 
         codeField = findViewById(R.id.smsCodeField);
@@ -116,8 +123,6 @@ public class PhoneNoActivity extends AppCompatActivity {
                 // for instance if the the phone number format is not valid.
                 Log.w(TAG, "onVerificationFailed", e);
                 Toast.makeText(getApplicationContext(), "Verification failed! Please try again!", Toast.LENGTH_SHORT).show();
-                sendOTPButton.setVisibility(View.VISIBLE);
-                verifyButton.setVisibility(View.INVISIBLE);
 
                 if (e instanceof FirebaseAuthInvalidCredentialsException) {
                     // Invalid request
@@ -199,12 +204,13 @@ public class PhoneNoActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     Log.d(TAG, "linkWithCredential:success");
-                    FirebaseUser user = task.getResult().getUser();
 
                     if(Constants.category.equals("student")){
                         Log.d(TAG, "Student prof update");
                         Student student = (Student) getIntent().getSerializableExtra("user");
-                        mDatabase.child("students").child(user.getUid()).setValue(student);
+
+                        registerStudentOnDB(student, task);
+
 
                         UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                                 .setDisplayName("student").build();
@@ -217,8 +223,6 @@ public class PhoneNoActivity extends AppCompatActivity {
                             }
                         });
 
-                        startActivity(new Intent(PhoneNoActivity.this, StudentHome.class));
-                        finish();
                     }
                     else if(Constants.category.equals("teacher")){
                         Log.d(TAG, "teacher prof update");
@@ -236,8 +240,6 @@ public class PhoneNoActivity extends AppCompatActivity {
                             }
                         });
 
-                        startActivity(new Intent(PhoneNoActivity.this, TeacherHome.class));
-                        finish();
                     }
 
 
@@ -249,51 +251,63 @@ public class PhoneNoActivity extends AppCompatActivity {
             }
         });
 
-
-
-
-
-
-//        mAuth.signInWithEmailAndPassword(username, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-//            @Override
-//            public void onComplete(@NonNull Task<AuthResult> task) {
-//                if (task.isSuccessful()) {
-//                    // Sign in success, update UI with the signed-in user's information
-//                    Log.d(TAG, "signInWithEmail:success");
-//                    FirebaseUser user = mAuth.getCurrentUser();
-//                    linkCredentials(credential, user);
-////                    updateUI(user);
-//                } else {
-//                    // If sign in fails, display a message to the user.
-//                    Log.w(TAG, "signInWithEmail:failure", task.getException());
-////                    Toast.makeText(PhoneNoActivity.this, "Authentication failed.",
-////                            Toast.LENGTH_SHORT).show();
-////                    updateUI(null);
-//                }
-//            }
-//        });
     }
-//
-//    private void linkCredentials(PhoneAuthCredential credential, FirebaseUser user){
-//        user.linkWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-//            @Override
-//            public void onComplete(@NonNull Task<AuthResult> task) {
-//                if (task.isSuccessful()) {
-//                    Log.d(TAG, "linkWithCredential:success");
-//                    FirebaseUser user = task.getResult().getUser();
-//
-//                    startActivity(new Intent(PhoneNoActivity.this, StudentHome.class));
-////                    updateUI(user);
-//                } else {
-//                    Log.w(TAG, "linkWithCredential:failure", task.getException());
-////                    Toast.makeText(PhoneNoActivity.this, "Authentication failed.",
-////                            Toast.LENGTH_SHORT).show();
-////                    updateUI(null);
-//                }
-//            }
-//        });
-//    }
 
+
+    private void registerStudentOnDB(Student student, Task<AuthResult> task){
+        FirebaseUser user = task.getResult().getUser();
+        String uid = user.getUid();
+
+        saveCandidatePhoto(uid, student);
+    }
+
+
+    private void saveCandidatePhoto(String key, Student student){
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageRef = storage.getReference();
+        StorageReference imagesRef = storageRef.child("images");
+
+        Uri file = Uri.fromFile(new File(student.getImgDownloadUrl()));
+        String extension = MimeTypeMap.getFileExtensionFromUrl(file.toString());
+        String modifiedName = key+"."+extension;
+        Log.d(TAG, "FIle Name : "+modifiedName);
+        StorageReference profRef = imagesRef.child(modifiedName);
+
+        UploadTask uploadTask = profRef.putFile(file);
+        // Register observers to listen for when the download is done or if it fails
+        uploadTask.addOnCompleteListener(PhoneNoActivity.this, new OnCompleteListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                if(task.isSuccessful()){
+                    Log.d(TAG, "Task successful");
+                    task.getResult().getMetadata().getReference().getDownloadUrl().addOnCompleteListener(PhoneNoActivity.this, new OnCompleteListener<Uri>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Uri> task) {
+                            if(task.isSuccessful()){
+                                Log.d(TAG, "OnComplete");
+                                student.setImgDownloadUrl(task.getResult().toString());
+                                mDatabase.child("students").child(key).setValue(student).addOnCompleteListener(PhoneNoActivity.this, new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        Log.d(TAG, "Database writing complete");
+                                        if(task.isSuccessful()){
+                                            Log.d(TAG, "Success writing to databse");
+                                            startActivity(new Intent(PhoneNoActivity.this, TeacherHome.class));
+                                            finish();
+                                        }
+                                    }
+                                });
+                            }
+                        }
+                    });
+
+                }
+
+            }
+        });
+
+
+    }
 
     @Override
     public void onBackPressed() {

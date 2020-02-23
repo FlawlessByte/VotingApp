@@ -84,6 +84,6 @@ public class Candidate implements Comparable{
     @Override
     public int compareTo(Object o) {
         int vote = ((Candidate)o).getVoteCount();
-        return this.voteCount-vote;
+        return vote-this.voteCount;
     }
 }

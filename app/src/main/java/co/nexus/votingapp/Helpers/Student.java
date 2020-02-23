@@ -3,7 +3,7 @@ package co.nexus.votingapp.Helpers;
 import java.io.Serializable;
 
 public class Student implements Serializable {
-    String name, dob, phone, gender, admissionNo, department, email;
+    String name, dob, phone, gender, admissionNo, department, email, imgDownloadUrl;
     int yearOfJoining, yearOfStudy;
     boolean isVoteEligible, isConfirmed, isRemoved;
 
@@ -11,7 +11,7 @@ public class Student implements Serializable {
 
 
     public Student(String name, String dob, String phone, String email, String gender, String admissionNo,
-                   String department, int yearOfJoining, int yearOfStudy, boolean isVoteEligible, boolean isConfirmed, boolean isRemoved) {
+                   String department, int yearOfJoining, int yearOfStudy, boolean isVoteEligible, boolean isConfirmed, boolean isRemoved, String imgDownloadUrl) {
         this.name = name;
         this.dob = dob;
         this.phone = phone;
@@ -24,6 +24,15 @@ public class Student implements Serializable {
         this.isVoteEligible = isVoteEligible;
         this.isConfirmed = isConfirmed;
         this.isRemoved = isRemoved;
+        this.imgDownloadUrl = imgDownloadUrl;
+    }
+
+    public String getImgDownloadUrl() {
+        return imgDownloadUrl;
+    }
+
+    public void setImgDownloadUrl(String imgDownloadUrl) {
+        this.imgDownloadUrl = imgDownloadUrl;
     }
 
     public String getEmail() {

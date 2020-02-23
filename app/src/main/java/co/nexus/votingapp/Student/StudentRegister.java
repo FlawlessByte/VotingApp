@@ -7,19 +7,26 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.obsez.android.lib.filechooser.ChooserDialog;
+
+import java.io.File;
 
 import co.nexus.votingapp.Helpers.Constants;
 import co.nexus.votingapp.Helpers.Student;
@@ -37,6 +44,9 @@ public class StudentRegister extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private String username, password;
     private final String TAG = "StudentRegister";
+    private LinearLayout studentPhotoLinearLayout;
+    private ImageView studentProfileImageView;
+    private TextView studentImagePathTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +75,18 @@ public class StudentRegister extends AppCompatActivity {
         editTextStudentYOS = findViewById(R.id.editTextStudentYOS);
         editTextStudentPhone = findViewById(R.id.editTextStudentPhone);
         radioGroupStudentGender = findViewById(R.id.radioGroupStudentGender);
+        studentPhotoLinearLayout = findViewById(R.id.studentPhotoLinearLayout);
+        studentProfileImageView = findViewById(R.id.studentProfileImageView);
+        studentImagePathTextView = findViewById(R.id.studentImagePathTextView);
+
+
+        studentPhotoLinearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "Student photo linear layout clicked");
+                doProfileImageSelectionStuff();
+            }
+        });
 
 
         editTextStudentDept.setOnClickListener(new View.OnClickListener() {
@@ -98,6 +120,31 @@ public class StudentRegister extends AppCompatActivity {
 
     }
 
+
+    private void doProfileImageSelectionStuff(){
+        new ChooserDialog(StudentRegister.this)
+                .withChosenListener(new ChooserDialog.Result() {
+                    @Override
+                    public void onChoosePath(String path, File pathFile) {
+                        Toast.makeText(StudentRegister.this, "FILE: " + path, Toast.LENGTH_SHORT).show();
+                        studentImagePathTextView.setText(path);
+                        studentProfileImageView.setImageBitmap(BitmapFactory.decodeFile(path));
+                    }
+                })
+                // to handle the back key pressed or clicked outside the dialog:
+                .withOnCancelListener(new DialogInterface.OnCancelListener() {
+                    public void onCancel(DialogInterface dialog) {
+                        Log.d("CANCEL", "CANCEL");
+                        dialog.cancel(); // MUST have
+                    }
+                })
+                .build()
+                .show();
+
+    }
+
+
+
     private Student getUserObject(){
         String name, dob, phone, gender, admnNo, dept;
         name = editTextStudentName.getText().toString();
@@ -110,8 +157,9 @@ public class StudentRegister extends AppCompatActivity {
         int yoj, yos;
         yoj = Integer.parseInt(editTextStudentYOJ.getText().toString());
         yos = Integer.parseInt(editTextStudentYOS.getText().toString());
+        String path = studentImagePathTextView.getText().toString();
 
-        Student student = new Student(name, dob, phone, username, gender, admnNo, dept, yoj, yos, true, false, false);
+        Student student = new Student(name, dob, phone, username, gender, admnNo, dept, yoj, yos, true, false, false, path);
 
         return student;
 
@@ -167,6 +215,11 @@ public class StudentRegister extends AppCompatActivity {
 
         if(editTextStudentDept.getText().toString().equals("Department")) {
             Toast.makeText(this, "Please select a department!", Toast.LENGTH_SHORT).show();
+            errorCount++;
+        }
+
+        if(studentImagePathTextView.getText().toString().equals("Add Photo")){
+            Toast.makeText(this, "Please select a photo!", Toast.LENGTH_SHORT).show();
             errorCount++;
         }
 

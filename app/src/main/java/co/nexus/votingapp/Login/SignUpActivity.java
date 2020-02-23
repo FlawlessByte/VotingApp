@@ -68,6 +68,11 @@ public class SignUpActivity extends AppCompatActivity {
             return;
         }
 
+        if(password.length()<6){
+            Toast.makeText(this, "The password length must be atleast 6 characters!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         if(Constants.category.equals("student")){
             Log.d(TAG, "Student sign in");
             Intent intent = new Intent(SignUpActivity.this, StudentRegister.class);

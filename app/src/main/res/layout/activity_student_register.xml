@@ -55,6 +55,56 @@
 <!--                android:layout_marginTop="@dimen/spacing_large"-->
 <!--                android:background="@color/grey_10" />-->
 
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Student Photo"
+                android:layout_marginTop="16dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                android:textColor="@color/grey_40" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_middle"
+                android:background="@drawable/edit_text_round_bg_outline"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:id="@+id/studentPhotoLinearLayout"
+                android:padding="@dimen/spacing_large">
+
+                <RelativeLayout
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:background="@color/grey_3">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/studentProfileImageView"
+                        android:layout_centerInParent="true"
+                        android:tint="@color/grey_20"
+                        android:background="@drawable/image_placeholder"/>
+
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:id="@+id/studentImagePathTextView"
+                    android:text="Add Photo"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textColor="@color/grey_40" />
+
+            </LinearLayout>
+
+
+
+
+
+
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/TextLabel"
                 android:layout_width="match_parent"
