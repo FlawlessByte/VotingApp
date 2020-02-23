@@ -239,6 +239,8 @@ public class PhoneNoActivity extends AppCompatActivity {
                                 }
                             }
                         });
+                        startActivity(new Intent(PhoneNoActivity.this, TeacherHome.class));
+                        finish();
 
                     }
 

@@ -182,7 +182,7 @@ public class AddCandidateActivity extends AppCompatActivity {
         candidateNameEditText.setText(student.getName());
         candidateDOBEditText.setText(student.getDob());
         canndidateDepartmentEditText.setText(student.getDepartment());
-        candidateYOSEditText.setText(student.getYearOfStudy());
+        candidateYOSEditText.setText(String.valueOf(student.getYearOfStudy()));
         Glide.with(AddCandidateActivity.this).load(student.getImgDownloadUrl()).into(civ);
     }
 
@@ -222,7 +222,7 @@ public class AddCandidateActivity extends AppCompatActivity {
         int errorCount = 0;
         String party = candidatePartyEditText.getText().toString();
 
-        if(party.equals("Candidate Party"))
+        if(party.equals(""))
             errorCount++;
 
 
