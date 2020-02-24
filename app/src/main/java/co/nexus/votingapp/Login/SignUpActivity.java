@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -60,6 +61,11 @@ public class SignUpActivity extends AppCompatActivity {
     private void doSignUpStuff(String username, String password, String passwordConfirm){
         if(TextUtils.isEmpty(username) || TextUtils.isEmpty(password) || TextUtils.isEmpty(passwordConfirm)){
             Toast.makeText(this, "Please fill out the fields and try again!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if(!Patterns.EMAIL_ADDRESS.matcher(username).matches()){
+            Toast.makeText(this, "Enter a valid email address!", Toast.LENGTH_SHORT).show();
             return;
         }
 
