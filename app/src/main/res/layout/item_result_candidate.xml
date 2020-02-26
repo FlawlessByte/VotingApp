@@ -35,12 +35,12 @@
 
 
             <TextView
-                android:id="@+id/textViewResParty"
+                android:id="@+id/textViewResDept"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="6dp"
                 android:layout_alignParentLeft="true"
-                android:text="Party"
+                android:text="Dept"
                 android:textStyle="bold"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 android:textColor="@color/grey_5" />

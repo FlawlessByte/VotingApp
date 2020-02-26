@@ -38,8 +38,8 @@ public class ResultAdapter extends ArrayAdapter<Candidate> {
         TextView name = (TextView) listItem.findViewById(R.id.textViewResName);
         name.setText(candidate.getName());
 
-        TextView party = (TextView) listItem.findViewById(R.id.textViewResParty);
-        party.setText(candidate.getParty());
+        TextView party = (TextView) listItem.findViewById(R.id.textViewResDept);
+        party.setText(candidate.getDepartment());
 
         TextView count = (TextView) listItem.findViewById(R.id.textViewResVote);
         count.setText("Vote Count : "+candidate.getVoteCount());

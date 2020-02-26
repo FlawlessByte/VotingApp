@@ -273,27 +273,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_mlarge"
-                android:text="Candiate Party"
+                android:text="Description about the candidate"
                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                 android:textColor="@color/grey_40" />
 
             <EditText
-                android:id="@+id/candidatePartyEditText"
+                android:id="@+id/candidateDescriptionEditText"
                 style="@style/EditText.Flat.Grey"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_marginTop="@dimen/spacing_middle"
                 android:background="@drawable/edit_text_round_bg_white"
-                android:drawableEnd="@drawable/ic_expand_arrow"
-                android:drawableRight="@drawable/ic_expand_arrow"
-                android:editable="false"
-                android:focusable="false"
-                android:hint="Candidate Party"
+                android:hint="Description"
                 android:backgroundTint="@color/grey_3"
                 android:paddingLeft="@dimen/spacing_middle"
                 android:paddingRight="@dimen/spacing_middle" />
-
-
 
 
 

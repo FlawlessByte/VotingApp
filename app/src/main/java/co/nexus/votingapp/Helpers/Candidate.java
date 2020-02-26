@@ -1,10 +1,10 @@
 package co.nexus.votingapp.Helpers;
 
 public class Candidate implements Comparable{
-    String name, dob, gender, department, imgPath, party;
+    String name, dob, gender, department, imgPath, description;
     int yearOfStudy, voteCount;
 
-    public Candidate(String name, String dob, String gender, String department, String imgPath, int yearOfStudy, int voteCount ,String party) {
+    public Candidate(String name, String dob, String gender, String department, String imgPath, int yearOfStudy, int voteCount ,String description) {
         this.name = name;
         this.dob = dob;
         this.gender = gender;
@@ -12,17 +12,17 @@ public class Candidate implements Comparable{
         this.imgPath = imgPath;
         this.yearOfStudy = yearOfStudy;
         this.voteCount = voteCount;
-        this.party = party;
+        this.description = description;
     }
 
     public Candidate() {}
 
-    public String getParty() {
-        return party;
+    public String getDescription() {
+        return description;
     }
 
-    public void setParty(String party) {
-        this.party = party;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getName() {

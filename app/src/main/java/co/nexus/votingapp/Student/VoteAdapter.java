@@ -67,7 +67,7 @@ public class VoteAdapter extends RecyclerView.Adapter<VoteAdapter.ViewHolder> {
         Candidate candidate = candidates.get(position);
 
         holder.nameTextView.setText(candidate.getName());
-        holder.partyTextView.setText(candidate.getParty());
+        holder.descTextView.setText(candidate.getDescription());
 
         StorageReference currentRef = null;
 
@@ -184,7 +184,7 @@ public class VoteAdapter extends RecyclerView.Adapter<VoteAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         public CircularImageView profImageView;
-        public TextView nameTextView, partyTextView;
+        public TextView nameTextView, descTextView;
         public Button voteButton;
 
         public ViewHolder(@NonNull View itemView) {
@@ -193,7 +193,7 @@ public class VoteAdapter extends RecyclerView.Adapter<VoteAdapter.ViewHolder> {
             profImageView = itemView.findViewById(R.id.item_vote_prof_imageview);
             nameTextView = itemView.findViewById(R.id.item_vote_name_textview);
             voteButton = itemView.findViewById(R.id.item_vote_button);
-            partyTextView = itemView.findViewById(R.id.item_vote_party_textview);
+            descTextView = itemView.findViewById(R.id.item_vote_desc_textview);
 
         }
     }

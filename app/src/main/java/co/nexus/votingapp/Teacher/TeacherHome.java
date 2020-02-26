@@ -12,12 +12,10 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.balysv.materialripple.MaterialRippleLayout;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,10 +26,9 @@ import co.nexus.votingapp.Helpers.Constants;
 import co.nexus.votingapp.Helpers.Teacher;
 import co.nexus.votingapp.MainActivity;
 import co.nexus.votingapp.R;
-import co.nexus.votingapp.Student.StudentHome;
 
 public class TeacherHome extends AppCompatActivity {
-    private MaterialRippleLayout addCandidate, inbox, logOut;
+    private MaterialRippleLayout addCandidate, inbox, logOut, viewCandidate;
     private final String TAG = "TeacherHome";
     private FirebaseAuth mAuth;
     private DatabaseReference mRef;
@@ -69,8 +66,21 @@ public class TeacherHome extends AppCompatActivity {
         addCandidate = findViewById(R.id.layoutAddCandidate);
         inbox = findViewById(R.id.layoutTeacherInbox);
         logOut = findViewById(R.id.layoutTeacherSignOut);
+        viewCandidate = findViewById(R.id.layoutViewCandidate);
 
         mAuth = FirebaseAuth.getInstance();
+
+        viewCandidate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "View Student clicked!");
+                if(isTeacherAuthorized)
+                    startActivity(new Intent(TeacherHome.this, ViewCandidateActivity.class));
+                else
+                    Toast.makeText(TeacherHome.this, "Your account is not yet confirmed by the teacher!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
         addCandidate.setOnClickListener(new View.OnClickListener() {
             @Override
