@@ -1,6 +1,7 @@
 package co.nexus.votingapp.Student;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.net.Uri;
@@ -60,6 +62,7 @@ public class VoteActivity extends AppCompatActivity {
     private Timer timer;
     private String gender;
     private ProgressDialog progressDialog;
+    private Button notaButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +77,16 @@ public class VoteActivity extends AppCompatActivity {
 
         textViewTimerValue = findViewById(R.id.textViewTimerValue);
         recyclerView = findViewById(R.id.recyclerViewVoteCandidate);
+        notaButton = findViewById(R.id.notaButton);
+
+
+        notaButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "Nota button clicked!");
+                showConfirmDialog();
+            }
+        });
 
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         recyclerView.addItemDecoration(new SpacingItemDecoration(3, dpToPx(2), true));
@@ -139,6 +152,24 @@ public class VoteActivity extends AppCompatActivity {
         }.start();
 
 
+    }
+
+
+
+    private void showConfirmDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Vote NOTA");
+        builder.setMessage("Are you sure you want to vote NOTA?");
+        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Log.d(TAG, "Dialog positive button clicked");
+                updateSharedPreference();
+                onBackPressed();
+            }
+        });
+        builder.setNegativeButton("NO", null);
+        builder.show();
     }
 
     private void updateSharedPreference(){

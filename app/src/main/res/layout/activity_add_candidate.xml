@@ -86,6 +86,7 @@
                         android:layout_width="@dimen/spacing_xmlarge"
                         android:layout_height="@dimen/spacing_xmlarge"
                         android:padding="@dimen/spacing_middle"
+                        android:id="@+id/imageViewSearch"
                         android:tint="@color/grey_40"
                         app:srcCompat="@drawable/ic_search_black_24dp" />
 

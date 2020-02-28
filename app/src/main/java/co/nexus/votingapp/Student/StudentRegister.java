@@ -4,7 +4,6 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
@@ -20,13 +19,14 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.obsez.android.lib.filechooser.ChooserDialog;
-
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import java.io.File;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import co.nexus.votingapp.Helpers.Constants;
 import co.nexus.votingapp.Helpers.Student;
@@ -40,13 +40,14 @@ public class StudentRegister extends AppCompatActivity {
     private Button buttonRegister;
     private RadioGroup radioGroupStudentGender;
     private EditText editTextStudentName, editTextStudentDOB, editTextStudentAdmNo,
-            editTextStudentDept, editTextStudentYOJ, editTextStudentYOS, editTextStudentPhone;
+            editTextStudentDept, editTextStudentYOJ, editTextStudentYOS, editTextStudentPhone, editTextTeacherId;
     private FirebaseAuth mAuth;
     private String username, password;
     private final String TAG = "StudentRegister";
     private LinearLayout studentPhotoLinearLayout;
     private ImageView studentProfileImageView;
     private TextView studentImagePathTextView;
+    private boolean isDOBValid = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +79,17 @@ public class StudentRegister extends AppCompatActivity {
         studentPhotoLinearLayout = findViewById(R.id.studentPhotoLinearLayout);
         studentProfileImageView = findViewById(R.id.studentProfileImageView);
         studentImagePathTextView = findViewById(R.id.studentImagePathTextView);
+        editTextTeacherId = findViewById(R.id.editTextStudentTeacherId);
+
+
+
+        editTextStudentDOB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "DOB clicked");
+                showDatePickerDialog();
+            }
+        });
 
 
         studentPhotoLinearLayout.setOnClickListener(new View.OnClickListener() {
@@ -121,6 +133,35 @@ public class StudentRegister extends AppCompatActivity {
     }
 
 
+    private void showDatePickerDialog(){
+        DatePickerDialog pickerDialog = DatePickerDialog.newInstance(new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+                Log.d(TAG, "onDateSet");
+
+                //validate age
+                Calendar userAge = new GregorianCalendar(year, monthOfYear, dayOfMonth);
+                Calendar minAdultAge = new GregorianCalendar();
+                minAdultAge.add(Calendar.YEAR, -18);
+                if(minAdultAge.before(userAge)){
+                    //User age is less than 18
+                    Log.d(TAG, "User age is below 18");
+                    Toast.makeText(StudentRegister.this, "The user age cannot be less than 18!", Toast.LENGTH_SHORT).show();
+                    isDOBValid = false;
+                }
+                else{
+                    editTextStudentDOB.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                    isDOBValid = true;
+                }
+
+
+            }
+        }, 2000, 1, 1);
+
+        pickerDialog.show(getSupportFragmentManager(), "DatePickerDialog");
+    }
+
+
     private void doProfileImageSelectionStuff(){
         new ChooserDialog(StudentRegister.this)
                 .withChosenListener(new ChooserDialog.Result() {
@@ -158,8 +199,9 @@ public class StudentRegister extends AppCompatActivity {
         yoj = Integer.parseInt(editTextStudentYOJ.getText().toString());
         yos = Integer.parseInt(editTextStudentYOS.getText().toString());
         String path = studentImagePathTextView.getText().toString();
+        String tid = editTextTeacherId.getText().toString();
 
-        Student student = new Student(name, dob, phone, username, gender, admnNo, dept, yoj, yos, true, false, false, path);
+        Student student = new Student(name, dob, phone, username, gender, admnNo, dept, yoj, yos, true, false, false, path, tid);
 
         return student;
 
@@ -187,6 +229,7 @@ public class StudentRegister extends AppCompatActivity {
             errorCount++;
         }
 
+
         if(TextUtils.isEmpty(editTextStudentAdmNo.getText())) {
             editTextStudentAdmNo.setError("Please provide the admission number!");
             errorCount++;
@@ -207,6 +250,12 @@ public class StudentRegister extends AppCompatActivity {
             errorCount++;
         }
 
+        if(TextUtils.isEmpty(editTextTeacherId.getText())) {
+            editTextStudentPhone.setError("Please enter your tutor's ID!");
+            errorCount++;
+        }
+
+
         String ph_no = editTextStudentPhone.getText().toString();
         if(ph_no.length() != 10 || !TextUtils.isDigitsOnly(ph_no)) {
             errorCount++;
@@ -222,6 +271,8 @@ public class StudentRegister extends AppCompatActivity {
             Toast.makeText(this, "Please select a photo!", Toast.LENGTH_SHORT).show();
             errorCount++;
         }
+
+
 
         return errorCount;
 

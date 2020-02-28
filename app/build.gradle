@@ -48,5 +48,6 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
     implementation 'com.android.support:cardview-v7:28.0.0'
     implementation 'com.balysv:material-ripple:1.0.2'
+    implementation 'com.wdullaer:materialdatetimepicker:4.2.3'
 
 }

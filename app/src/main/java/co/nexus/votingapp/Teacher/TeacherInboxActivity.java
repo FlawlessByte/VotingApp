@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -27,11 +29,18 @@ public class TeacherInboxActivity extends AppCompatActivity {
     private ArrayList<String> keys = new ArrayList<>();
     private RecyclerView recyclerView;
     private StudentAdapter mAdapter;
+    private String tid = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teacher_inbox);
+
+        SharedPreferences sharedPref = getSharedPreferences("TEACHER_INFO", Context.MODE_PRIVATE);
+        tid = sharedPref.getString("tid",null);
+        Log.d(TAG, "TID : "+tid);
+
+
 
         recyclerView = findViewById(R.id.recyclerViewTeacherInbox);
         recyclerView.setHasFixedSize(true);
@@ -58,7 +67,7 @@ public class TeacherInboxActivity extends AppCompatActivity {
                 keys.clear();
                 for(DataSnapshot singleSnapShot : dataSnapshot.getChildren()){
                     Student student = singleSnapShot.getValue(Student.class);
-                    if(!student.isConfirmed() && !student.isRemoved()){
+                    if(!student.isConfirmed() && !student.isRemoved() && student.getTeacherId().equals(tid)){
                         students.add(student);
                         keys.add(singleSnapShot.getKey());
                         Log.d(TAG, "Found student that is not confirmed");

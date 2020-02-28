@@ -12,6 +12,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,6 +31,7 @@ import co.nexus.votingapp.R;
 
 public class AddCandidateActivity extends AppCompatActivity {
     private ImageButton buttonLeftCandidate, buttonDoneCandidate;
+    private ImageView imageViewSearch;
     private TextInputEditText candidateNameEditText, candidateDOBEditText;
     private EditText canndidateDepartmentEditText, candidateYOSEditText, candidateDescEditText;
     private RadioGroup candidateGenderRadioGroup;
@@ -71,6 +73,17 @@ public class AddCandidateActivity extends AppCompatActivity {
         candidateDescEditText = findViewById(R.id.candidateDescriptionEditText);
         candidateSearch = findViewById(R.id.candidate_search);
         civ = findViewById(R.id.candidateProfImg);
+        imageViewSearch = findViewById(R.id.imageViewSearch);
+
+
+
+        imageViewSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "Search Button clicked");
+                searchAction();
+            }
+        });
 
 
         candidateSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -119,6 +132,12 @@ public class AddCandidateActivity extends AppCompatActivity {
 
     private void searchAction(){
         Log.d(TAG, "Search Action");
+
+        if(candidateSearch.getText().toString().equals("")){
+            Toast.makeText(AddCandidateActivity.this, "Please enter something and search!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         if(students.size() != 0){
             for(Student stud : students){
                 if(stud.getAdmissionNo().equals(candidateSearch.getText().toString())){

@@ -46,13 +46,14 @@ public class StudentHome extends AppCompatActivity {
         setContentView(R.layout.activity_student_home);
 
         mAuth = FirebaseAuth.getInstance();
+        uid = mAuth.getUid();
+        Log.d(TAG, "UID : "+uid);
 
 
         initialiseSharedPrefs();
 
         progressDialog = showProgressDialog();
 
-        uid = mAuth.getUid();
         mRef = FirebaseDatabase.getInstance().getReference();
         mRef.child("students").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

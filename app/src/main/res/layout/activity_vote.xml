@@ -68,14 +68,26 @@
 
     </LinearLayout>
 
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewVoteCandidate"
-        android:layout_margin="8dp"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="vertical"
-        android:scrollingCache="true" />
+        android:layout_height="match_parent">
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewVoteCandidate"
+            android:layout_margin="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/notaButton"
+            android:scrollbars="vertical"
+            android:scrollingCache="true" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/actionBarSize"
+            android:id="@+id/notaButton"
+            android:layout_alignParentBottom="true"
+            android:text="NOTA"/>
+
+    </RelativeLayout>
 
 </LinearLayout>

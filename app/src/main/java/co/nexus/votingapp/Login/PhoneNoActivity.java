@@ -294,7 +294,7 @@ public class PhoneNoActivity extends AppCompatActivity {
                                         Log.d(TAG, "Database writing complete");
                                         if(task.isSuccessful()){
                                             Log.d(TAG, "Success writing to databse");
-                                            startActivity(new Intent(PhoneNoActivity.this, TeacherHome.class));
+                                            startActivity(new Intent(PhoneNoActivity.this, StudentHome.class));
                                             finish();
                                         }
                                     }

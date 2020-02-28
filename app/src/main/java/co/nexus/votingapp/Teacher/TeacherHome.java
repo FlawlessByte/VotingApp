@@ -35,6 +35,7 @@ public class TeacherHome extends AppCompatActivity {
     private boolean isTeacherAuthorized;
     private String uid;
     private ProgressDialog progressDialog;
+    private String tid = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +54,15 @@ public class TeacherHome extends AppCompatActivity {
                 Log.d(TAG, "onDataChange");
                 Teacher teacher = dataSnapshot.getValue(Teacher.class);
                 isTeacherAuthorized = teacher.isConfirmed();
+                tid = teacher.getTid();
+                Log.d(TAG, "TID : "+tid);
                 progressDialog.dismiss();
+
+                SharedPreferences sharedPref = getSharedPreferences("TEACHER_INFO",Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString("tid", tid);
+                editor.apply();
+
             }
 
             @Override
@@ -77,7 +86,7 @@ public class TeacherHome extends AppCompatActivity {
                 if(isTeacherAuthorized)
                     startActivity(new Intent(TeacherHome.this, ViewCandidateActivity.class));
                 else
-                    Toast.makeText(TeacherHome.this, "Your account is not yet confirmed by the teacher!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(TeacherHome.this, "Your account is not yet confirmed by the admin!", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -89,7 +98,7 @@ public class TeacherHome extends AppCompatActivity {
                 if(isTeacherAuthorized)
                     startActivity(new Intent(TeacherHome.this, AddCandidateActivity.class));
                 else
-                    Toast.makeText(TeacherHome.this, "Your account is not yet confirmed by the teacher!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(TeacherHome.this, "Your account is not yet confirmed by the admin!", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -100,7 +109,7 @@ public class TeacherHome extends AppCompatActivity {
                 if(isTeacherAuthorized)
                     startActivity(new Intent(TeacherHome.this, TeacherInboxActivity.class));
                 else
-                    Toast.makeText(TeacherHome.this, "Your account is not yet confirmed by the teacher!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(TeacherHome.this, "Your account is not yet confirmed by the admin!", Toast.LENGTH_SHORT).show();
             }
         });
 
