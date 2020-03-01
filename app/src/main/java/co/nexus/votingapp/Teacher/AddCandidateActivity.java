@@ -191,7 +191,7 @@ public class AddCandidateActivity extends AppCompatActivity {
 //        gender = ((RadioButton)findViewById(selectedId)).getText().toString();
 
         Candidate candidate = new Candidate(student.getName(), student.getDob(), student.getGender(), student.getDepartment(),
-                student.getImgDownloadUrl(), student.getYearOfStudy(), 0, desc);
+                student.getImgDownloadUrl(), student.getYearOfStudy(), 0, desc, false, false);
 
         return candidate;
     }

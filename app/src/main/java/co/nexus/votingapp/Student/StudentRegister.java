@@ -6,8 +6,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -19,6 +22,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -48,6 +53,7 @@ public class StudentRegister extends AppCompatActivity {
     private ImageView studentProfileImageView;
     private TextView studentImagePathTextView;
     private boolean isDOBValid = false;
+    private int PICK_IMAGE = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -163,27 +169,45 @@ public class StudentRegister extends AppCompatActivity {
 
 
     private void doProfileImageSelectionStuff(){
-        new ChooserDialog(StudentRegister.this)
-                .withChosenListener(new ChooserDialog.Result() {
-                    @Override
-                    public void onChoosePath(String path, File pathFile) {
-                        Toast.makeText(StudentRegister.this, "FILE: " + path, Toast.LENGTH_SHORT).show();
-                        studentImagePathTextView.setText(path);
-                        studentProfileImageView.setImageBitmap(BitmapFactory.decodeFile(path));
-                    }
-                })
-                // to handle the back key pressed or clicked outside the dialog:
-                .withOnCancelListener(new DialogInterface.OnCancelListener() {
-                    public void onCancel(DialogInterface dialog) {
-                        Log.d("CANCEL", "CANCEL");
-                        dialog.cancel(); // MUST have
-                    }
-                })
-                .build()
-                .show();
 
+        //Create an Intent with action as ACTION_PICK
+        Intent intent=new Intent(Intent.ACTION_PICK);
+        // Sets the type as image/*. This ensures only components of type image are selected
+        intent.setType("image/*");
+        //We pass an extra array with the accepted mime types. This will ensure only components with these MIME types as targeted.
+        String[] mimeTypes = {"image/jpeg", "image/png"};
+        intent.putExtra(Intent.EXTRA_MIME_TYPES,mimeTypes);
+        // Launching the Intent
+        startActivityForResult(intent, PICK_IMAGE);
     }
 
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_IMAGE && resultCode == RESULT_OK) {
+            //TODO: action
+            Log.d(TAG,"Image selected");
+            //data.getData return the content URI for the selected Image
+            Uri selectedImage = data.getData();
+            String[] filePathColumn = { MediaStore.Images.Media.DATA };
+            // Get the cursor
+            Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+            // Move to first row
+            cursor.moveToFirst();
+            //Get the column index of MediaStore.Images.Media.DATA
+            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+            //Gets the String value in the column
+            String path = cursor.getString(columnIndex);
+            cursor.close();
+            Log.d(TAG, "File chosen : "+path);
+            studentImagePathTextView.setText(path);
+//            studentProfileImageView.setImageBitmap(BitmapFactory.decodeFile(path));
+            Glide.with(this).load(new File(path)).into(studentProfileImageView);
+        }
+
+
+    }
 
 
     private Student getUserObject(){
@@ -207,14 +231,6 @@ public class StudentRegister extends AppCompatActivity {
 
     }
 
-
-//    private void writeRegisterInfoToDB(){
-//        Student student = getUserObject();
-//
-//        mDatabase.child("students").child(mAuth.getUid()).setValue(student);
-//
-//        Toast.makeText(getApplicationContext(), "Successfully registered!", Toast.LENGTH_SHORT).show();
-//    }
 
     private int checkInputs(){
         int errorCount = 0;

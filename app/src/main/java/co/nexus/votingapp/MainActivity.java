@@ -55,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        mRef = FirebaseDatabase.getInstance().getReference();
+
         //Manage the signed in users
         SharedPreferences sharedPref = getSharedPreferences(Constants.user_prof,Context.MODE_PRIVATE);
         String user = sharedPref.getString("currentUser", "none");
@@ -63,24 +65,24 @@ public class MainActivity extends AppCompatActivity {
         if(FirebaseAuth.getInstance().getUid() != null)
             switch (user){
                 case "student": {
+                    Log.d(TAG, "User : Student");
                     startActivity(new Intent(MainActivity.this, StudentHome.class));
                     finish();
                     break;
                 }
                 case "teacher": {
+                    Log.d(TAG, "User : Teacher");
                     startActivity(new Intent(MainActivity.this, TeacherHome.class));
                     finish();
                     break;
                 }
             }
-        else
+        else {
             Log.d(TAG, "Auth null");
+            progressDialog = showProgressDialog();
+            getData();
+        }
 
-
-
-        progressDialog = showProgressDialog();
-
-        mRef = FirebaseDatabase.getInstance().getReference();
         recyclerViewNews = findViewById(R.id.recyclerViewNewsFeeds);
         recyclerViewNotf = findViewById(R.id.recyclerViewNotification);
         recyclerViewNews.setHasFixedSize(true);
@@ -96,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
         notfAdapter.notifyDataSetChanged();
         newsAdapter.notifyDataSetChanged();
 
-        getData();
+
 
         initToolbar();
         initNavigationMenu();

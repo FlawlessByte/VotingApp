@@ -3,8 +3,9 @@ package co.nexus.votingapp.Helpers;
 public class Candidate implements Comparable{
     String name, dob, gender, department, imgPath, description;
     int yearOfStudy, voteCount;
+    boolean isConfirmed, isReviewed;
 
-    public Candidate(String name, String dob, String gender, String department, String imgPath, int yearOfStudy, int voteCount ,String description) {
+    public Candidate(String name, String dob, String gender, String department, String imgPath, int yearOfStudy, int voteCount ,String description, boolean isConfirmed, boolean isReviewed) {
         this.name = name;
         this.dob = dob;
         this.gender = gender;
@@ -13,9 +14,28 @@ public class Candidate implements Comparable{
         this.yearOfStudy = yearOfStudy;
         this.voteCount = voteCount;
         this.description = description;
+        this.isConfirmed = isConfirmed;
+        this.isReviewed = isReviewed;
     }
 
     public Candidate() {}
+
+
+    public boolean isReviewed() {
+        return isReviewed;
+    }
+
+    public void setReviewed(boolean reviewed) {
+        isReviewed = reviewed;
+    }
+
+    public boolean isConfirmed() {
+        return isConfirmed;
+    }
+
+    public void setConfirmed(boolean confirmed) {
+        isConfirmed = confirmed;
+    }
 
     public String getDescription() {
         return description;

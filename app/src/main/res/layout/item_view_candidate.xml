@@ -146,6 +146,28 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
+                    android:text="ACCEPT"
+                    android:id="@+id/item_accept_candidate_button"
+                    android:textColor="@color/colorPrimary"
+                    android:background="@android:color/transparent"
+                    android:tint="@color/grey_20"/>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="@dimen/spacing_medium">
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
                     android:text="REMOVE"
                     android:id="@+id/item_remove_candidate_button"
                     android:textColor="@color/colorPrimary"

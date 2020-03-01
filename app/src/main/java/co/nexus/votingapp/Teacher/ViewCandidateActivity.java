@@ -70,8 +70,10 @@ public class ViewCandidateActivity extends AppCompatActivity {
                 keys.clear();
                 for(DataSnapshot singleSnapShot : dataSnapshot.getChildren()){
                     Candidate candidate = singleSnapShot.getValue(Candidate.class);
-                    candidates.add(candidate);
-                    keys.add(singleSnapShot.getKey());
+                    if(!candidate.isReviewed()) {
+                        candidates.add(candidate);
+                        keys.add(singleSnapShot.getKey());
+                    }
                 }
 
                 Log.d(TAG, "Size : "+candidates.size());

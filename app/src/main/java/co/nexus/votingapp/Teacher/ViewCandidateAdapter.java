@@ -63,6 +63,14 @@ public class ViewCandidateAdapter extends RecyclerView.Adapter<ViewCandidateAdap
         Glide.with(context)
                 .load(candidate.getImgPath()).into(holder.profImageView);
 
+        holder.acceptButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "Accept button clicked!");
+                acceptCandidate(position);
+            }
+        });
+
 
         holder.removeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,43 +82,72 @@ public class ViewCandidateAdapter extends RecyclerView.Adapter<ViewCandidateAdap
     }
 
 
+    private void acceptCandidate(int pos){
+        Log.d(TAG, "Accept candidate");
+
+        ProgressDialog dialog = showProgressDialog();
+        dialog.show();
+
+        String key = keys.get(pos);
+        DatabaseReference mRef = FirebaseDatabase.getInstance().getReference();
+        mRef.child("candidate").child(key).child("reviewed").setValue(true);
+        mRef.child("candidate").child(key).child("confirmed").setValue(true).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                Log.d(TAG, "reviewed updated");
+                dialog.dismiss();
+            }
+        });
+    }
+
+
     private void showConfirmDialog(int pos) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle("Vote Candidate");
+        builder.setTitle("Remove Candidate");
         builder.setMessage("Are you sure you want to remove this candidate?");
         builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 Log.d(TAG, "Dialog positive button clicked");
-                removeCandidateFromDB(pos);
+                rejectCandidate(pos);
             }
         });
         builder.setNegativeButton("NO", null);
         builder.show();
     }
 
-    private void removeCandidateFromDB(int pos){
+    private void rejectCandidate(int pos){
         Log.d(TAG, "Remove candidate");
 
         ProgressDialog dialog = showProgressDialog();
+        dialog.show();
 
         String key = keys.get(pos);
         DatabaseReference mRef = FirebaseDatabase.getInstance().getReference();
-        mRef.child("candidate").child(key).removeValue().addOnCompleteListener((Activity) context, new OnCompleteListener<Void>() {
+        mRef.child("candidate").child(key).child("reviewed").setValue(true);
+        mRef.child("candidate").child(key).child("confirmed").setValue(false).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                Log.d(TAG, "onComplete");
-                if(task.isSuccessful()){
-                    Log.d(TAG, "Successfull removing candidate");
-                    Toast.makeText(context, "Successfully removed candidate!", Toast.LENGTH_SHORT).show();
-                    dialog.dismiss();
-                }
-                else{
-                    Toast.makeText(context, "Error removing candidate!", Toast.LENGTH_SHORT).show();
-                    dialog.dismiss();
-                }
+                Log.d(TAG, "reviewed updated");
+                dialog.dismiss();
             }
         });
+
+//        mRef.child("candidate").child(key).removeValue().addOnCompleteListener((Activity) context, new OnCompleteListener<Void>() {
+//            @Override
+//            public void onComplete(@NonNull Task<Void> task) {
+//                Log.d(TAG, "onComplete");
+//                if(task.isSuccessful()){
+//                    Log.d(TAG, "Successfull removing candidate");
+//                    Toast.makeText(context, "Successfully removed candidate!", Toast.LENGTH_SHORT).show();
+//                    dialog.dismiss();
+//                }
+//                else{
+//                    Toast.makeText(context, "Error removing candidate!", Toast.LENGTH_SHORT).show();
+//                    dialog.dismiss();
+//                }
+//            }
+//        });
 
 
     }
@@ -119,7 +156,6 @@ public class ViewCandidateAdapter extends RecyclerView.Adapter<ViewCandidateAdap
     private ProgressDialog showProgressDialog(){
         ProgressDialog dialog = new ProgressDialog(context);
         dialog.setMessage("Please wait!");
-        dialog.show();
         return dialog;
     }
 
@@ -131,7 +167,7 @@ public class ViewCandidateAdapter extends RecyclerView.Adapter<ViewCandidateAdap
     public class ViewHolder extends RecyclerView.ViewHolder{
         public CircularImageView profImageView;
         public TextView nameTextView, descTextView, yosTextView, deptTextView;
-        public Button removeButton;
+        public Button removeButton, acceptButton;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -142,6 +178,7 @@ public class ViewCandidateAdapter extends RecyclerView.Adapter<ViewCandidateAdap
             descTextView = itemView.findViewById(R.id.item_view_candidate_desc_textview);
             yosTextView = itemView.findViewById(R.id.item_view_candidate_yos_textview);
             deptTextView = itemView.findViewById(R.id.item_view_candidate_dept_textview);
+            acceptButton = itemView.findViewById(R.id.item_accept_candidate_button);
 
         }
     }

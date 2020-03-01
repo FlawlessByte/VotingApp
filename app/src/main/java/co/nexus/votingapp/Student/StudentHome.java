@@ -25,6 +25,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import co.nexus.votingapp.Helpers.Candidate;
 import co.nexus.votingapp.Helpers.Constants;
 import co.nexus.votingapp.Helpers.Student;
 import co.nexus.votingapp.MainActivity;
@@ -32,13 +33,14 @@ import co.nexus.votingapp.R;
 
 public class StudentHome extends AppCompatActivity {
     private Button buttonFeePayment, buttonVoteCandidate, buttonSignOut;
-    private MaterialRippleLayout layoutFeePayment, layoutVoteCandidate, layoutSignOut;
+    private MaterialRippleLayout layoutFeePayment, layoutVoteCandidate, layoutSignOut, layoutCanididateRequest;
     private final String TAG = "StudentHome";
     private boolean isStudentAuthorized = false;
     private ProgressDialog progressDialog;
     private String uid;
     private DatabaseReference mRef;
     private FirebaseAuth mAuth;
+    private Student student;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +61,7 @@ public class StudentHome extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Log.d(TAG, "onDataChange");
-                Student student = dataSnapshot.getValue(Student.class);
+                student = dataSnapshot.getValue(Student.class);
                 isStudentAuthorized = student.isConfirmed();
                 progressDialog.dismiss();
             }
@@ -75,6 +77,21 @@ public class StudentHome extends AppCompatActivity {
         layoutFeePayment = findViewById(R.id.layoutFeePayment);
         layoutVoteCandidate = findViewById(R.id.layoutVoteCandidate);
         layoutSignOut = findViewById(R.id.layoutSignOut);
+        layoutCanididateRequest = findViewById(R.id.layoutCandidateRequest);
+
+        layoutCanididateRequest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "Candidate Requests for Participation!");
+
+                if(isStudentAuthorized)
+                    startActivity(new Intent(StudentHome.this, CandidateRequestActivity.class).putExtra("student", student));
+                else
+                    Toast.makeText(StudentHome.this, "Your account is not yet confirmed by the teacher!", Toast.LENGTH_SHORT).show();
+
+//                showParticipationConfirmDialog();
+            }
+        });
 
 
         layoutSignOut.setOnClickListener(new View.OnClickListener() {
@@ -168,6 +185,8 @@ public class StudentHome extends AppCompatActivity {
         builder.setNegativeButton("No", null);
         builder.show();
     }
+
+
 
     public void backButtonPressed(View view) {
         onBackPressed();
