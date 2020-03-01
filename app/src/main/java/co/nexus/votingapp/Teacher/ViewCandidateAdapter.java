@@ -57,8 +57,6 @@ public class ViewCandidateAdapter extends RecyclerView.Adapter<ViewCandidateAdap
         holder.deptTextView.setText(candidate.getDepartment());
         holder.yosTextView.setText(""+candidate.getYearOfStudy());
 
-        StorageReference currentRef = null;
-
 
         Glide.with(context)
                 .load(candidate.getImgPath()).into(holder.profImageView);

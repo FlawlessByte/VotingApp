@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
@@ -39,13 +40,11 @@ public class VoteAdapter extends RecyclerView.Adapter<VoteAdapter.ViewHolder> {
     private final String TAG = "VoteAdapter";
     private ArrayList<Candidate> candidates;
     private ArrayList<String> keys;
-    private ArrayList<StorageReference> refs;
     private Context context;
     private String gender;
 
-    public VoteAdapter(Context context, ArrayList<Candidate> candidates, ArrayList<String> keys, ArrayList<StorageReference> refs, String gender) {
+    public VoteAdapter(Context context, ArrayList<Candidate> candidates, ArrayList<String> keys,  String gender) {
         this.candidates = candidates;
-        this.refs = refs;
         this.keys = keys;
         this.gender = gender;
         this.context = context;
@@ -69,19 +68,9 @@ public class VoteAdapter extends RecyclerView.Adapter<VoteAdapter.ViewHolder> {
         holder.nameTextView.setText(candidate.getName());
         holder.descTextView.setText(candidate.getDescription());
 
-        StorageReference currentRef = null;
 
-        for(StorageReference ref : refs){
-            if(ref.getName().contains(keys.get(position))){
-                currentRef = ref;
-            }
-        }
-
-        if(currentRef != null)
-            GlideApp.with(context)
-                .load(currentRef).into(holder.profImageView);
-        else
-            Log.d(TAG, "Current Ref null");
+        Glide.with(context)
+            .load(candidate.getImgPath()).into(holder.profImageView);
 
         holder.voteButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -49,14 +49,13 @@ public class VoteActivity extends AppCompatActivity {
     private final String TAG = "VoteActivity";
     private TextView textViewTimerValue;
     private RecyclerView recyclerView;
-    private ArrayList<StorageReference> refs;
     private ArrayList<Candidate> candidates;
     private ArrayList<String> keys;
     private int size;
     private String uid;
     private FirebaseAuth mAuth;
     private DatabaseReference mRef;
-    private int taskCount = 2;
+    private int taskCount = 1;
     private VoteAdapter mAdapter;
     private Student student;
     private Timer timer;
@@ -70,8 +69,6 @@ public class VoteActivity extends AppCompatActivity {
         setContentView(R.layout.activity_vote);
 
         gender = getIntent().getStringExtra("gender");
-
-        refs = new ArrayList<>();
         candidates = new ArrayList<>();
         keys = new ArrayList<>();
 
@@ -91,7 +88,7 @@ public class VoteActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         recyclerView.addItemDecoration(new SpacingItemDecoration(3, dpToPx(2), true));
 
-        mAdapter = new VoteAdapter(this, candidates, keys, refs, gender);
+        mAdapter = new VoteAdapter(this, candidates, keys,  gender);
         recyclerView.setAdapter(mAdapter);
         mAdapter.notifyDataSetChanged();
 
@@ -102,8 +99,6 @@ public class VoteActivity extends AppCompatActivity {
         getTimerValue();
 
         getStudentData(uid);
-        processData();
-
 
     }
 
@@ -226,7 +221,7 @@ public class VoteActivity extends AppCompatActivity {
         taskCount--;
         if(taskCount==0) {
             Log.d(TAG, "Task count 0");
-            mAdapter = new VoteAdapter(this, candidates, keys, refs, gender);
+            mAdapter = new VoteAdapter(this, candidates, keys, gender);
             recyclerView.setAdapter(mAdapter);
             mAdapter.notifyDataSetChanged();
             progressDialog.dismiss();
@@ -277,55 +272,6 @@ public class VoteActivity extends AppCompatActivity {
         });
     }
 
-
-
-    private void processData(){
-        StorageReference listRef = FirebaseStorage.getInstance().getReference().child("images");
-
-        refs.clear();
-
-        listRef.listAll()
-                .addOnSuccessListener(new OnSuccessListener<ListResult>() {
-                    @Override
-                    public void onSuccess(ListResult listResult) {
-                        Log.d(TAG, "OnSuccess");
-                        for (StorageReference prefix : listResult.getPrefixes()) {
-                            // All the prefixes under listRef.
-                            // You may call listAll() recursively on them.
-                            Log.d(TAG, prefix.toString());
-                        }
-
-                        size = listResult.getItems().size();
-                        for (StorageReference item : listResult.getItems()) {
-                            // All the items under listRef.
-                            Log.d(TAG, "Item : "+item.getDownloadUrl() );
-                            size--;
-                            item.getDownloadUrl().addOnSuccessListener(VoteActivity.this, new OnSuccessListener<Uri>() {
-                                @Override
-                                public void onSuccess(Uri uri) {
-                                    refs.add(item);
-                                    if(size==0){
-                                        //nothing
-                                    }
-                                }
-                            });
-
-                        }
-
-//                        mAdapter.notifyDataSetChanged();
-
-                        doAdapterStuff();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        // Uh-oh, an error occurred!
-                        Log.d(TAG, "Failed to get images");
-                    }
-                });
-
-    }
 
     public void backButtonPressed(View view){
         Log.d(TAG, "Back button pressed");
