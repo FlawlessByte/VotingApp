@@ -212,13 +212,11 @@ public class MainActivity extends AppCompatActivity {
                     case "Gallery": {
                         Log.d(TAG, "Gallery clicked");
                         startActivity(new Intent(MainActivity.this, GalleryActivity.class));
-                        finish();
                         break;
                     }
                     case "About": {
                         Log.d(TAG, "About clicked");
                         startActivity(new Intent(MainActivity.this, AboutActivity.class));
-                        finish();
                         break;
                     }
 

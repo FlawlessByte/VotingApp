@@ -20,6 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 
 import co.nexus.votingapp.Helpers.Candidate;
 import co.nexus.votingapp.Helpers.Notification;
@@ -69,23 +70,61 @@ public class AdminResultActivity extends AppCompatActivity {
 
     private void sendNotification(){
         if(!year_one_data.isEmpty()){
-            Candidate candidate = year_one_data.get(0);
-            String msg = candidate.getName() + " of " + candidate.getDepartment() + " year " + candidate.getYearOfStudy()+ " won the election";
-            Notification.makeNotification(this, "Election Results", msg);
+            for (Candidate candidate : year_one_data) {
+                if (candidate.getGender().equals("M")) {
+                    String msg = candidate.getName() + " of " + candidate.getDepartment() + " year " + candidate.getYearOfStudy() + " won the election";
+                    Notification.makeNotification(this, "Election Results", msg);
+                    break;
+                }
+            }
+
+            for (Candidate candidate : year_one_data) {
+                if (candidate.getGender().equals("F")) {
+                    String msg = candidate.getName() + " of " + candidate.getDepartment() + " year " + candidate.getYearOfStudy() + " won the election";
+                    Notification.makeNotification(this, "Election Results", msg);
+                    break;
+                }
+            }
+
         }
 
         if(!year_two_data.isEmpty()){
-            Candidate candidate = year_two_data.get(0);
-            String msg = candidate.getName() + " of " + candidate.getDepartment() + " year " + candidate.getYearOfStudy()+ " won the election";
-            Notification.makeNotification(this, "Election Results", msg);
+            for (Candidate candidate : year_two_data) {
+                if (candidate.getGender().equals("M")) {
+                    String msg = candidate.getName() + " of " + candidate.getDepartment() + " year " + candidate.getYearOfStudy() + " won the election";
+                    Notification.makeNotification(this, "Election Results", msg);
+                    break;
+                }
+            }
+
+            for (Candidate candidate : year_two_data) {
+                if (candidate.getGender().equals("F")) {
+                    String msg = candidate.getName() + " of " + candidate.getDepartment() + " year " + candidate.getYearOfStudy() + " won the election";
+                    Notification.makeNotification(this, "Election Results", msg);
+                    break;
+                }
+            }
         }
 
         if(!year_three_data.isEmpty()){
-            Candidate candidate = year_three_data.get(0);
-            String msg = candidate.getName() + " of " + candidate.getDepartment() + " year " + candidate.getYearOfStudy()+ " won the election";
-            Notification.makeNotification(this, "Election Results", msg);
+            for (Candidate candidate : year_three_data) {
+                if (candidate.getGender().equals("M")) {
+                    String msg = candidate.getName() + " of " + candidate.getDepartment() + " year " + candidate.getYearOfStudy() + " won the election";
+                    Notification.makeNotification(this, "Election Results", msg);
+                    break;
+                }
+            }
+
+            for (Candidate candidate : year_three_data) {
+                if (candidate.getGender().equals("F")) {
+                    String msg = candidate.getName() + " of " + candidate.getDepartment() + " year " + candidate.getYearOfStudy() + " won the election";
+                    Notification.makeNotification(this, "Election Results", msg);
+                    break;
+                }
+            }
         }
     }
+
 
     private ProgressDialog showProgressDialog(){
         ProgressDialog dialog = new ProgressDialog(this);

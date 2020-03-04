@@ -72,5 +72,10 @@ public class StudentPaymentActivity extends AppCompatActivity {
             return;
         }
         Toast.makeText(this, "Payment successful!", Toast.LENGTH_SHORT).show();
+        onBackPressed();
+    }
+
+    public void backButtonPressed(View view) {
+        onBackPressed();
     }
 }

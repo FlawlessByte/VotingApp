@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -56,6 +57,7 @@ public class PhoneNoActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
     private String category;
+    private ProgressDialog progressDialog;
 
 
     @Override
@@ -85,6 +87,8 @@ public class PhoneNoActivity extends AppCompatActivity {
                 Log.d(TAG, "OTP verify button pressed");
                 String code = codeField.getText().toString();
                 if(code.length() == 6){
+                    progressDialog = showProgressDialog();
+                    progressDialog.show();
                     PhoneAuthCredential credential = PhoneAuthProvider.getCredential(mVerificationId, code);
                     signInWithPhoneAuthCredential(credential);
                 }
@@ -96,6 +100,14 @@ public class PhoneNoActivity extends AppCompatActivity {
 
 
 
+    }
+
+
+
+    private ProgressDialog showProgressDialog(){
+        ProgressDialog dialog = new ProgressDialog(this);
+        dialog.setMessage("Please wait!");
+        return dialog;
     }
 
     private void doSmsStuff(String phoneNumber){
@@ -121,6 +133,7 @@ public class PhoneNoActivity extends AppCompatActivity {
             public void onVerificationFailed(FirebaseException e) {
                 // This callback is invoked in an invalid request for verification is made,
                 // for instance if the the phone number format is not valid.
+                progressDialog.dismiss();
                 Log.w(TAG, "onVerificationFailed", e);
                 Toast.makeText(getApplicationContext(), "Verification failed! Please try again!", Toast.LENGTH_SHORT).show();
 
@@ -181,6 +194,7 @@ public class PhoneNoActivity extends AppCompatActivity {
 
                             // ...
                         } else {
+                            progressDialog.dismiss();
                             // Sign in failed, display a message and update the UI
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
                             if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
@@ -223,6 +237,7 @@ public class PhoneNoActivity extends AppCompatActivity {
                             }
                         });
 
+
                     }
                     else if(Constants.category.equals("teacher")){
                         Log.d(TAG, "teacher prof update");
@@ -239,6 +254,7 @@ public class PhoneNoActivity extends AppCompatActivity {
                                 }
                             }
                         });
+                        progressDialog.dismiss();
                         startActivity(new Intent(PhoneNoActivity.this, TeacherHome.class));
                         finish();
 
@@ -246,6 +262,7 @@ public class PhoneNoActivity extends AppCompatActivity {
 
 
                 } else {
+                    progressDialog.dismiss();
                     Log.w(TAG, "linkWithCredential:failure", task.getException());
                     Toast.makeText(PhoneNoActivity.this, "Authentication failed.",
                             Toast.LENGTH_SHORT).show();
@@ -257,14 +274,17 @@ public class PhoneNoActivity extends AppCompatActivity {
 
 
     private void registerStudentOnDB(Student student, Task<AuthResult> task){
+        Log.d(TAG, "registerStudentOnDB");
         FirebaseUser user = task.getResult().getUser();
         String uid = user.getUid();
+        Log.d(TAG, "User ID : "+uid);
 
         saveCandidatePhoto(uid, student);
     }
 
 
     private void saveCandidatePhoto(String key, Student student){
+        Log.d(TAG, "saveCandidatePhoto");
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReference();
         StorageReference imagesRef = storageRef.child("images");
@@ -294,6 +314,7 @@ public class PhoneNoActivity extends AppCompatActivity {
                                         Log.d(TAG, "Database writing complete");
                                         if(task.isSuccessful()){
                                             Log.d(TAG, "Success writing to databse");
+                                            progressDialog.dismiss();
                                             startActivity(new Intent(PhoneNoActivity.this, StudentHome.class));
                                             finish();
                                         }

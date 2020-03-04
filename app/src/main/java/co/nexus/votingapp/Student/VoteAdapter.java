@@ -70,7 +70,7 @@ public class VoteAdapter extends RecyclerView.Adapter<VoteAdapter.ViewHolder> {
 
 
         Glide.with(context)
-            .load(candidate.getImgPath()).into(holder.profImageView);
+            .load(candidate.getImgPath()).placeholder(R.drawable.prof_placeholder).into(holder.profImageView);
 
         holder.voteButton.setOnClickListener(new View.OnClickListener() {
             @Override

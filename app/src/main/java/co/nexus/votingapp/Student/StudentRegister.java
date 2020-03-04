@@ -132,6 +132,7 @@ public class StudentRegister extends AppCompatActivity {
                     intent.putExtra("user", student);
                     intent.putExtra("category", "teacher");
                     startActivity(intent);
+                    finish();
                 }
             }
         });

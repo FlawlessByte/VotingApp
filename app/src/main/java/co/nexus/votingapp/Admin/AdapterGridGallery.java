@@ -61,7 +61,7 @@ public class AdapterGridGallery extends RecyclerView.Adapter<RecyclerView.ViewHo
         });
 
         GlideApp.with(context)
-                .load(items.get(position))
+                .load(items.get(position)).placeholder(R.drawable.image_placeholder)
                 .into(hold.imgView);
     }
 

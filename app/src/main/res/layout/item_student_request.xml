@@ -22,6 +22,7 @@
             android:layout_height="80dp"
             android:layout_marginTop="@dimen/spacing_xlarge"
             android:src="@drawable/prof_placeholder"
+            android:id="@+id/item_student_profile_pic"
             app:civ_border="true"
             app:civ_shadow="true"
             app:civ_shadow_radius="0dp"

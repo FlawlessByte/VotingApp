@@ -59,7 +59,7 @@ public class ViewCandidateAdapter extends RecyclerView.Adapter<ViewCandidateAdap
 
 
         Glide.with(context)
-                .load(candidate.getImgPath()).into(holder.profImageView);
+                .load(candidate.getImgPath()).placeholder(R.drawable.prof_placeholder).into(holder.profImageView);
 
         holder.acceptButton.setOnClickListener(new View.OnClickListener() {
             @Override

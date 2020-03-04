@@ -77,6 +77,7 @@ public class TeacherRegister extends AppCompatActivity {
                     intent.putExtra("user", teacher);
                     intent.putExtra("category", "teacher");
                     startActivity(intent);
+                    finish();
 
                 }
                 else{

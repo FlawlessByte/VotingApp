@@ -13,10 +13,12 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.mikhaellopez.circularimageview.CircularImageView;
 
 import java.util.ArrayList;
 
@@ -58,6 +60,9 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.ViewHold
         holder.studentDepartmentTextView.setText(student.department);
         holder.studentYOSTextView.setText(String.valueOf(student.yearOfStudy));
         holder.studentYOJTextView.setText(String.valueOf(student.yearOfJoining));
+
+        Glide.with(context)
+                .load(student.getImgDownloadUrl()).placeholder(R.drawable.prof_placeholder).into(holder.studentImg);
 
         holder.studentAcceptButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,6 +126,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.ViewHold
         public TextView studentNameTextView, studentEmailTextView, studentPhoneTextView, studentAdmnNoTextView,
                 studentDepartmentTextView, studentYOSTextView, studentYOJTextView;
         public Button studentAcceptButton, studentRemoveButton;
+        public CircularImageView studentImg;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -134,6 +140,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.ViewHold
             studentYOJTextView = itemView.findViewById(R.id.item_student_yoj_textview);
             studentAcceptButton = itemView.findViewById(R.id.item_student_accept_button);
             studentRemoveButton = itemView.findViewById(R.id.item_student_remove_button);
+            studentImg = itemView.findViewById(R.id.item_student_profile_pic);
         }
     }
 
